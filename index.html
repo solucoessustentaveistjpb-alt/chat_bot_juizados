@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ofetino - 4º Juizado Especial Cível da Capital e Cabedelo (TJPB)</title>
+
+  <!-- Anti-FOUC seguro contra iframes sandboxed -->
+  <script>
+    (function() {
+      try {
+        var saved = null;
+        try { saved = localStorage.getItem('ofetino_theme'); } catch(e) {}
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (err) {}
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fontes Google: Inter e Atkinson Hyperlegible -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- QRCode.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    try {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              dyslexic: ['Atkinson Hyperlegible', 'sans-serif']
+            },
+            colors: {
+              jusblue: {
+                50: '#f0f6fc',
+                100: '#e1eef9',
+                500: '#0284c7',
+                600: '#0369a1',
+                700: '#075985',
+                800: '#0c4a6e',
+                900: '#0f3152',
+                950: '#081d33',
+              }
+            }
+          }
+        }
+      };
+    } catch(e) {}
+  </script>
+
+  <style>
+    :root {
+      --app-font-scale: 1;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #cbd5e1;
+      color: #1e293b;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    .dark html, .dark body, html.dark, body.dark {
+      background-color: #020617;
+      color: #f8fafc;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    #rootWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      min-height: 100%;
+      padding: 0;
+    }
+    @media (min-width: 768px) {
+      #rootWrapper {
+        padding: 10px;
+      }
+    }
+    #appContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 920px;
+      height: 100%;
+      background-color: #ffffff;
+      border: 1px solid rgba(203, 213, 225, 0.8);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      position: relative;
+    }
+    .dark #appContainer {
+      background-color: #0f172a;
+      border-color: #1e293b;
+    }
+    @media (min-width: 768px) {
+      #appContainer {
+        height: 96vh;
+        max-height: 940px;
+        border-radius: 1.5rem;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(241, 245, 249, 0.7);
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-bubble {
+      animation: slideUpFade 0.22s ease-out forwards;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.1); }
+    }
+    .dot-1 { animation: blink 1.2s infinite 0.1s; }
+    .dot-2 { animation: blink 1.2s infinite 0.25s; }
+    .dot-3 { animation: blink 1.2s infinite 0.4s; }
+
+    @keyframes dashboardAttentionPulse {
+      0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+        border-color: rgba(2, 132, 199, 0.2);
+        filter: brightness(1);
+      }
+      25% {
+        transform: translateY(-2px) scale(1.015);
+        box-shadow: 0 8px 16px -2px rgba(2, 132, 199, 0.25), 0 4px 8px -2px rgba(15, 23, 42, 0.1), 0 0 0 2px rgba(14, 165, 233, 0.35);
+        border-color: rgba(2, 132, 199, 0.55);
+      }
+      50% {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 18px 34px -4px rgba(2, 132, 199, 0.4), 0 8px 16px -4px rgba(15, 23, 42, 0.15), 0 0 0 3.5px rgba(14, 165, 233, 0.65);
+        border-color: rgba(2, 132, 199, 0.95);
+        filter: brightness(1.04);
+      }
+      75% {
+        transform: translateY(-2px) scale(1.015);
+        box-shadow: 0 8px 16px -2px rgba(2, 132, 199, 0.25), 0 4px 8px -2px rgba(15, 23, 42, 0.1), 0 0 0 2px rgba(14, 165, 233, 0.35);
+        border-color: rgba(2, 132, 199, 0.55);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+        border-color: rgba(2, 132, 199, 0.2);
+        filter: brightness(1);
+      }
+    }
+    .dashboard-attention-pulse {
+      animation: dashboardAttentionPulse 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+      animation-iteration-count: 5;
+      will-change: transform, box-shadow, filter;
+      position: relative;
+      z-index: 15;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dashboard-attention-pulse {
+        animation: none !important;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.6) !important;
+        border-color: #0284c7 !important;
+      }
+    }
+    body.high-contrast {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    body.high-contrast .bg-white,
+    body.high-contrast .bg-slate-50,
+    body.high-contrast .dark\:bg-slate-800,
+    body.high-contrast .dark\:bg-slate-900 {
+      background-color: #0a0a0a !important;
+      color: #ffff00 !important;
+      border-color: #ffff00 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="rootWrapper">
+    <div id="appContainer">
+      
+      <!-- CABEÇALHO INSTITUCIONAL -->
+      <header class="bg-gradient-to-r from-jusblue-950 via-jusblue-900 to-jusblue-800 text-white p-3 sm:px-4 shadow-md z-30 flex flex-col gap-2 flex-shrink-0">
+        <div class="flex items-center justify-between">
+          
+          <!-- Avatar e Título do Ofetino -->
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="relative flex-shrink-0">
+              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full ring-2 ring-sky-300/60 overflow-hidden bg-sky-100 flex items-center justify-center shadow-inner">
+                <svg viewBox="0 0 128 128" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="128" height="128" fill="#E0F2FE"/>
+                  <path d="M38 46C38 28 50 18 64 18C78 18 90 28 90 46C90 54 88 62 86 68C84 56 80 50 64 50C48 50 44 56 42 68C40 62 38 54 38 46Z" fill="#2C3E50"/>
+                  <ellipse cx="64" cy="54" rx="22" ry="24" fill="#FBD2B5"/>
+                  <path d="M58 74H70V88H58V74Z" fill="#F3BF9B"/>
+                  <path d="M24 128C24 100 36 84 52 84H76C92 84 104 100 104 128H24Z" fill="#0F3152"/>
+                  <path d="M52 84L64 108L76 84L70 84L64 96L58 84H52Z" fill="#FFFFFF"/>
+                  <polygon points="62,96 66,96 67,118 64,124 61,118" fill="#C0392B"/>
+                  <path d="M40 92L54 128H74L88 92L76 84L64 106L52 84L40 92Z" fill="#1E4E79"/>
+                  <rect x="46" y="46" width="14" height="10" rx="3" fill="none" stroke="#1E293B" stroke-width="2"/>
+                  <rect x="68" y="46" width="14" height="10" rx="3" fill="none" stroke="#1E293B" stroke-width="2"/>
+                  <line x1="60" y1="51" x2="68" y2="51" stroke="#1E293B" stroke-width="2"/>
+                  <circle cx="53" cy="51" r="2.2" fill="#1E293B"/>
+                  <circle cx="75" cy="51" r="2.2" fill="#1E293B"/>
+                  <path d="M48 42C51 40 55 40 58 42" stroke="#2C3E50" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M70 42C73 40 77 40 80 42" stroke="#2C3E50" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M58 64C62 67 66 67 70 64" stroke="#8A4A38" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M40 38C44 26 53 22 64 22C75 22 84 26 88 38C82 32 74 30 64 31C54 30 46 32 40 38Z" fill="#1A252F"/>
+                </svg>
+              </div>
+              <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-jusblue-950 rounded-full" title="Online agora"></span>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h1 class="font-extrabold text-sm sm:text-base leading-tight tracking-tight text-white flex items-center gap-1">
+                  Ofetino
+                  <i class="fa-solid fa-circle-check text-sky-400 text-xs sm:text-sm" title="Assistente Oficial TJPB"></i>
+                </h1>
+                <span class="text-[9px] sm:text-[10px] font-bold uppercase bg-sky-500/25 text-sky-200 border border-sky-400/30 px-1.5 py-0.5 rounded-full">Oficial</span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-slate-300 truncate max-w-[170px] sm:max-w-none">4º Juizado Especial Cível • Capital e Cabedelo</p>
+            </div>
+          </div>
+
+          <!-- Ações do Cabeçalho -->
+          <div class="flex items-center gap-1 sm:gap-2">
+            
+            <!-- Botão QR Code de Acesso Rápido -->
+            <button 
+              id="qrCodeBtn"
+              type="button"
+              onclick="openQrModal()" 
+              title="Exibir QR Code e Link de Acesso" 
+              aria-label="Abrir QR Code de acesso ao assistente"
+              class="bg-white/10 hover:bg-white/20 active:scale-95 text-emerald-300 p-2 rounded-xl text-xs flex items-center gap-1 transition border border-white/10 shadow-xs"
+            >
+              <i class="fa-solid fa-qrcode text-xs sm:text-sm text-emerald-400"></i>
+              <span class="hidden sm:inline text-[11px] font-semibold text-white">QR Code</span>
+            </button>
+
+            <!-- Botão Modo Claro / Escuro -->
+            <button 
+              id="themeToggleBtn"
+              type="button"
+              onclick="toggleThemeMode()" 
+              title="Alternar entre Modo Claro e Modo Escuro" 
+              aria-label="Alternar tema visual"
+              class="bg-white/10 hover:bg-white/20 active:scale-95 text-amber-300 dark:text-sky-300 p-2 rounded-xl text-xs flex items-center gap-1 transition border border-white/10 shadow-xs"
+            >
+              <i id="themeIconSun" class="fa-solid fa-sun text-xs sm:text-sm dark:hidden text-amber-300"></i>
+              <i id="themeIconMoon" class="fa-solid fa-moon text-xs sm:text-sm hidden dark:inline-block text-sky-200"></i>
+              <span id="themeLabelText" class="hidden sm:inline text-[11px] font-semibold text-white">Claro</span>
+            </button>
+
+            <!-- Acesso Administrativo -->
+            <a href="/admin" title="Painel Administrativo Restrito" class="bg-amber-400/20 hover:bg-amber-400/30 text-amber-200 border border-amber-300/40 p-2 rounded-xl text-xs flex items-center gap-1 transition">
+              <i class="fa-solid fa-lock text-xs sm:text-sm text-amber-300"></i>
+              <span class="hidden sm:inline text-[11px] font-bold">Admin</span>
+            </a>
+
+            <!-- Acessibilidade -->
+            <button onclick="openAccessibilityModal()" title="Recursos de Acessibilidade" class="bg-white/10 hover:bg-white/20 text-sky-200 p-2 rounded-xl text-xs flex items-center gap-1 transition">
+              <i class="fa-solid fa-universal-access text-xs sm:text-sm"></i>
+              <span class="hidden md:inline text-[11px] font-medium">Acessibilidade</span>
+            </button>
+
+            <!-- Cartório -->
+            <button onclick="openUnitContactModal()" title="Dados do Cartório" class="bg-sky-600/80 hover:bg-sky-600 text-white p-2 rounded-xl text-xs flex items-center gap-1 transition">
+              <i class="fa-solid fa-building-columns text-xs sm:text-sm"></i>
+              <span class="hidden md:inline text-[11px] font-medium">Cartório</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Barra de Jurisdição e Horário -->
+        <div class="bg-jusblue-950/70 py-1.5 px-3 rounded-xl border border-white/10 text-xs flex items-center justify-between text-sky-200 shadow-inner">
+          <div class="flex items-center gap-2 truncate">
+            <i class="fa-solid fa-map-location-dot text-sky-400 text-xs flex-shrink-0"></i>
+            <span class="truncate text-[11px] sm:text-xs text-white font-medium">João Pessoa e Cabedelo (Competência Unificada)</span>
+          </div>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-semibold px-2 py-0.5 rounded-full border border-emerald-400/30 whitespace-nowrap ml-2 flex-shrink-0">
+            Expediente: 07h - 17h
+          </span>
+        </div>
+      </header>
+
+      <!-- ÁREA DE CHAT E INTERAÇÃO -->
+      <main id="chatContainer" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3.5 bg-slate-50 dark:bg-slate-900/60 relative transition-colors">
+        
+        <!-- Marca d'água -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035] dark:opacity-[0.02]">
+          <i class="fa-solid fa-scale-balanced text-[240px] text-slate-800 dark:text-slate-200"></i>
+        </div>
+
+        <!-- Boas-vindas (Alvo 1 do Alerta Pulsante 3D) -->
+        <div id="welcomeMessageBubble" class="flex items-start gap-2.5 max-w-[94%] animate-bubble">
+          <div class="w-8 h-8 rounded-full bg-jusblue-900 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold ring-2 ring-sky-200 dark:ring-sky-600">
+            O
+          </div>
+          <div id="welcomeMessageCard" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-none p-3.5 shadow-xs text-xs sm:text-sm text-slate-700 dark:text-slate-200 space-y-2 transition-all">
+            <p>
+              Olá! Eu sou o <strong>Ofetino</strong>. É um prazer atendê-lo! Sou o assistente virtual oficial do <strong>4º Juizado Especial Cível da Capital e Cabedelo</strong> (serventia judiciária única com competência sobre ambas as comarcas).
+            </p>
+            <p class="text-slate-600 dark:text-slate-300 text-xs">
+              Estou pronto para ajudar você com dúvidas práticas sobre como dar entrada em ações, regras de audiências, vestimenta, prazos, acordos, súmulas e canais de contato.
+            </p>
+            <div class="bg-sky-50 dark:bg-sky-950/50 border-l-4 border-sky-600 p-2 text-xs text-sky-950 dark:text-sky-200 rounded-r">
+              <i class="fa-solid fa-info-circle mr-1 text-sky-600 dark:text-sky-400"></i>
+              <strong>Dica Rápida:</strong> Toque em um dos botões abaixo ou digite sua dúvida no campo inferior.
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade de Ações Rápidas -->
+        <div id="quickOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-[96%] ml-8 sm:ml-9">
+          
+          <!-- Balcão Virtual (Alvo 2 do Alerta Pulsante 3D) -->
+          <button id="quickActionBalcao" onclick="handleQuickAction('balcao_virtual')" class="text-left bg-white dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-slate-700/80 border border-sky-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-headset"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-sky-950 dark:text-sky-100 block">Balcão Virtual</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Atendimento ao vivo por vídeo</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-sky-600 transition"></i>
+          </button>
+
+          <!-- Ação Sem Advogado -->
+          <button onclick="handleQuickAction('atermacao')" class="text-left bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700/80 border border-emerald-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-file-pen"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-emerald-950 dark:text-emerald-100 block">Ação sem Advogado</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Peça Você Mesmo (até 20 SM)</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-emerald-600 transition"></i>
+          </button>
+
+          <!-- Audiência Online -->
+          <button onclick="handleQuickAction('audiencias')" class="text-left bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-slate-700/80 border border-indigo-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-video"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-indigo-950 dark:text-indigo-100 block">Audiência On-line</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Falar com servidor via WhatsApp</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-indigo-600 transition"></i>
+          </button>
+
+          <!-- Pagar Custas -->
+          <button onclick="handleQuickAction('custas')" class="text-left bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">Pagar Custas</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Gratuito em 1º grau (Portal TJPB)</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-slate-600 transition"></i>
+          </button>
+
+          <!-- Endereço e Contato -->
+          <button onclick="handleQuickAction('contato_detalhado')" class="text-left bg-white dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-slate-700/80 border border-teal-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-teal-100 dark:bg-teal-900/60 text-teal-700 dark:text-teal-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-address-book"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-teal-950 dark:text-teal-100 block">Endereço e Telefone</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Fórum, WhatsApp e E-mail</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-teal-600 transition"></i>
+          </button>
+
+          <!-- Consulta PJe -->
+          <button onclick="handleQuickAction('consulta_processo')" class="text-left bg-white dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-slate-700/80 border border-sky-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-sky-950 dark:text-sky-100 block">Consulta PJe 1º Grau</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Andamento oficial do processo</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-sky-600 transition"></i>
+          </button>
+
+          <!-- Competência da Lei 9.099/95 -->
+          <button onclick="handleQuickAction('competencia_juizados')" class="text-left bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-slate-700/80 border border-amber-200 dark:border-slate-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-amber-950 dark:text-amber-100 block">Competência e Limites</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">O que o Juizado pode julgar</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-amber-600 transition"></i>
+          </button>
+
+          <!-- Base Dúvidas & Precedentes (FAQ) -->
+          <button onclick="openFaqModal()" class="text-left bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 hover:from-amber-100 hover:to-orange-100 dark:hover:from-amber-900/50 dark:hover:to-orange-900/50 border border-amber-300 dark:border-amber-700 p-2.5 rounded-xl shadow-xs transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-amber-200 dark:bg-amber-800 text-amber-900 dark:text-amber-100 flex items-center justify-center text-sm group-hover:scale-105 transition">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <div>
+                <span class="text-xs font-extrabold text-amber-950 dark:text-amber-100 block">Dúvidas & Precedentes</span>
+                <span class="text-[10px] text-amber-800 dark:text-amber-300">Súmulas STJ, CNJ e rotina do JEC</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-amber-600 transition"></i>
+          </button>
+
+        </div>
+
+        <!-- Indicador de Digitação -->
+        <div id="typingIndicator" class="hidden flex items-start gap-2.5 max-w-[85%]">
+          <div class="w-8 h-8 rounded-full bg-jusblue-900 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold">
+            O
+          </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-none p-3 shadow-xs flex items-center gap-1.5">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium mr-1">Ofetino está consultando</span>
+            <div class="w-2 h-2 rounded-full bg-jusblue-600 dot-1"></div>
+            <div class="w-2 h-2 rounded-full bg-jusblue-600 dot-2"></div>
+            <div class="w-2 h-2 rounded-full bg-jusblue-600 dot-3"></div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- RODAPÉ DE ENTRADA -->
+      <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-2.5 sm:p-3 z-20 flex-shrink-0 transition-colors">
+        
+        <!-- Chips rápidos -->
+        <div class="flex gap-1.5 border-b border-slate-100 dark:border-slate-800 pb-2 mb-2 overflow-x-auto text-[11px] whitespace-nowrap text-slate-600 dark:text-slate-300 no-scrollbar">
+          <button type="button" onclick="openQrModal()" class="bg-emerald-100 dark:bg-emerald-950/60 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 text-emerald-950 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-bold">
+            📱 QR Code do Portal
+          </button>
+          <button type="button" onclick="openFaqModal()" class="bg-amber-100 dark:bg-amber-950/60 hover:bg-amber-200 dark:hover:bg-amber-900/60 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-bold">
+            ❓ Dúvidas & Precedentes
+          </button>
+          <button type="button" onclick="handleQuickAction('balcao_virtual')" class="bg-sky-50 dark:bg-sky-950/60 hover:bg-sky-100 dark:hover:bg-sky-900/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium">
+            📞 Balcão Virtual
+          </button>
+          <button type="button" onclick="handleQuickAction('atermacao')" class="bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium">
+            ⚖️ Como entrar com ação?
+          </button>
+          <button type="button" onclick="handleQuickAction('audiencias')" class="bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium">
+            💻 Audiência online
+          </button>
+          <button type="button" onclick="handleQuickAction('custas')" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium">
+            💰 Pagar custas
+          </button>
+          <button type="button" onclick="handleQuickAction('contato_detalhado')" class="bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-100 dark:hover:bg-teal-900/60 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800 px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium">
+            📍 Endereço e telefone
+          </button>
+        </div>
+
+        <!-- Formulário de Digitação -->
+        <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex items-center gap-2">
+          <div class="relative flex-1">
+            <input 
+              type="text" 
+              id="chatInput" 
+              placeholder="Digite sua dúvida ou pesquise (ex: desvio produtivo, golpe pix, súmula 479, audiência)..." 
+              class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-jusblue-600 dark:focus:border-sky-500 focus:bg-white dark:focus:bg-slate-850 text-slate-800 dark:text-slate-100 text-xs sm:text-sm rounded-2xl py-2.5 sm:py-3 pl-3.5 pr-20 outline-none transition shadow-inner"
+              autocomplete="off"
+              enterkeyhint="send"
+            />
+
+            <!-- Ditado por Voz -->
+            <button 
+              type="button" 
+              id="btnMic" 
+              onclick="toggleSpeechRecognition()" 
+              title="Falar por voz"
+              class="absolute right-9 top-1/2 -translate-y-1/2 text-slate-400 hover:text-jusblue-700 dark:hover:text-sky-400 p-1.5 transition rounded-full"
+            >
+              <i class="fa-solid fa-microphone text-sm" id="micIcon"></i>
+            </button>
+
+            <!-- Leitura por Áudio -->
+            <button 
+              type="button" 
+              id="btnTtsToggle" 
+              onclick="toggleAutoSpeech()" 
+              title="Ativar/desativar leitura em voz alta"
+              class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-jusblue-700 dark:hover:text-sky-400 p-1.5 transition rounded-full"
+            >
+              <i class="fa-solid fa-volume-xmark text-xs text-slate-400" id="ttsIcon"></i>
+            </button>
+          </div>
+
+          <button 
+            type="submit" 
+            id="btnSend"
+            class="bg-jusblue-700 hover:bg-jusblue-800 active:scale-95 text-white w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center transition shadow-md flex-shrink-0"
+            title="Enviar mensagem"
+          >
+            <i class="fa-solid fa-paper-plane text-xs sm:text-sm"></i>
+          </button>
+        </form>
+
+        <div class="flex items-center justify-between text-[10px] text-slate-400 mt-2 px-1">
+          <span>4º Juizado Especial Cível • Lei nº 9.099/95</span>
+          <button onclick="clearChatHistory()" class="hover:text-slate-600 dark:hover:text-slate-300 transition flex items-center gap-1">
+            <i class="fa-solid fa-rotate-right text-[9px]"></i>
+            <span>Reiniciar conversa</span>
+          </button>
+        </div>
+
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- MODAL: CONTATO DO CARTÓRIO -->
+  <div id="unitModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 animate-bubble">
+      <div class="bg-jusblue-950 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-landmark text-sky-400"></i>
+          <h3 class="font-bold text-sm">4º Juizado Especial Cível da Capital e Cabedelo</h3>
+        </div>
+        <button onclick="closeUnitContactModal()" class="text-slate-300 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-5 space-y-3.5 text-xs text-slate-700 dark:text-slate-200 max-h-[75vh] overflow-y-auto">
+        <div>
+          <span class="font-bold text-slate-900 dark:text-white block mb-0.5">Endereço Presencial & Sede:</span>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Fórum Cível Des. Mário Moacyr Porto<br>
+            Av. João Machado, s/n - Centro, João Pessoa - PB, CEP: 58013-520<br>
+            <em>(Atendimento unificado para João Pessoa e Cabedelo)</em>
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-sky-950/40 dark:to-blue-950/40 border border-sky-200 dark:border-sky-800 p-3 rounded-xl shadow-xs">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-bold text-jusblue-950 dark:text-sky-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-headset text-sky-600 dark:text-sky-400"></i> BALCÃO VIRTUAL OFICIAL
+            </span>
+            <span class="text-[10px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded-full">Ao Vivo</span>
+          </div>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-2">Videoconferência direta com o servidor do cartório:</p>
+          <a href="https://balcaovirtualtjpb.tjpb.jus.br/?groupID=677ffc6706cbc74dc24065d9&subgroupID=677ffd8906cbc74dc24065dc&deskID=6798fa90098b13d618a8fa57" target="_blank" class="w-full bg-jusblue-700 hover:bg-jusblue-800 text-white py-2 px-3 rounded-lg font-semibold flex items-center justify-center gap-2 text-xs transition shadow-sm">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Entrar na Sala do Balcão Virtual</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl">
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">WHATSAPP OFICIAL</span>
+            <a href="https://wa.me/5583991441428" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold hover:underline flex items-center gap-1.5 mt-1 text-xs truncate">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span>(83) 99144-1428</span>
+            </a>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl">
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">E-MAIL DO CARTÓRIO</span>
+            <a href="mailto:jpa-jciv04@tjpb.jus.br" class="text-sky-700 dark:text-sky-400 font-bold hover:underline flex items-center gap-1.5 mt-1 text-xs truncate">
+              <i class="fa-regular fa-envelope text-sm"></i>
+              <span>jpa-jciv04@tjpb.jus.br</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-sky-50 dark:bg-sky-950/40 border-l-4 border-sky-600 p-2.5 rounded-r text-sky-950 dark:text-sky-200">
+          <p class="font-semibold">Horário Forense:</p>
+          <p>Segunda a Sexta-feira: <strong>07h00 às 17h00</strong>.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+        <button onclick="closeUnitContactModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium rounded-xl text-xs transition">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ACESSIBILIDADE -->
+  <div id="accessModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-sm w-full shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 animate-bubble">
+      <div class="bg-jusblue-950 text-white p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-universal-access text-sky-400"></i>
+          <h3 class="font-bold text-sm">Recursos de Acessibilidade</h3>
+        </div>
+        <button onclick="closeAccessibilityModal()" class="text-slate-300 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-4 space-y-3.5 text-xs text-slate-700 dark:text-slate-200">
+        <div>
+          <span class="font-bold text-slate-900 dark:text-white block mb-1.5">Tamanho da Fonte:</span>
+          <div class="flex items-center gap-2">
+            <button onclick="changeFontSize(-0.1)" class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 py-2 rounded-xl font-bold text-xs">
+              A-
+            </button>
+            <button onclick="resetFontSize()" class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 py-2 rounded-xl font-medium text-xs">
+              Padrão
+            </button>
+            <button onclick="changeFontSize(0.1)" class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 py-2 rounded-xl font-bold text-xs">
+              A+
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+          <button onclick="toggleHighContrast()" class="w-full text-left p-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-between">
+            <span class="font-semibold text-slate-800 dark:text-slate-200">Modo Alto Contraste</span>
+            <i class="fa-solid fa-circle-half-stroke text-slate-500 dark:text-slate-400"></i>
+          </button>
+          <button onclick="toggleDyslexicFont()" class="w-full text-left p-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-between">
+            <span class="font-semibold text-slate-800 dark:text-slate-200">Fonte para Dislexia (Atkinson)</span>
+            <i class="fa-solid fa-font text-slate-500 dark:text-slate-400"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-50 dark:bg-slate-855 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+        <button onclick="closeAccessibilityModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium rounded-xl text-xs transition">
+          Concluído
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QR CODE & LINK DE ACESSO -->
+  <div id="qrModal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 animate-bubble flex flex-col max-h-[92vh]">
+      
+      <!-- Cabeçalho do Modal QR Code -->
+      <div class="bg-gradient-to-r from-jusblue-950 to-jusblue-900 text-white p-3.5 sm:p-4 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base border border-emerald-400/30">
+            <i class="fa-solid fa-qrcode"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm sm:text-base leading-tight">Acesso Rápido via QR Code</h3>
+            <span class="text-[11px] text-sky-200">Aponte a câmera do celular para abrir o Ofetino</span>
+          </div>
+        </div>
+        <button onclick="closeQrModal()" class="text-slate-300 hover:text-white p-1 rounded-lg transition" title="Fechar janela">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Conteúdo do QR Code -->
+      <div class="p-4 sm:p-5 space-y-4 overflow-y-auto text-xs text-slate-700 dark:text-slate-200 text-center">
+        
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          Disponível para cidadãos, partes e advogados. Abra o assistente diretamente no seu smartphone sem precisar digitar o endereço:
+        </p>
+
+        <!-- Moldura do QR Code com alto contraste -->
+        <div class="relative mx-auto w-fit p-3 bg-white rounded-2xl shadow-md border-2 border-emerald-500/40 ring-4 ring-emerald-500/10 flex flex-col items-center justify-center">
+          <div id="qrcodeCanvasContainer" class="flex items-center justify-center min-w-[200px] min-h-[200px]"></div>
+          
+          <!-- Badge indicativo com logo / brasão -->
+          <div class="mt-2.5 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+            <i class="fa-solid fa-scale-balanced text-jusblue-700 text-xs"></i>
+            <span>4º JEC • João Pessoa e Cabedelo</span>
+          </div>
+        </div>
+
+        <!-- Seção do Link Direto abaixo do QR Code -->
+        <div class="space-y-1.5 pt-1 text-left bg-slate-50 dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <i class="fa-solid fa-globe text-sky-600 dark:text-sky-400"></i> Link Direto do Site
+            </span>
+            <span id="copyToast" class="hidden text-[10px] font-bold text-emerald-600 dark:text-emerald-400 animate-pulse">
+              <i class="fa-solid fa-check"></i> Link Copiado!
+            </span>
+          </div>
+          
+          <a 
+            id="qrPortalDirectLink"
+            href="https://ofetino-4jec-capital-cabedelo.ofetinosolucoes.chatgpt.site/" 
+            target="_blank" 
+            class="text-jusblue-700 dark:text-sky-400 hover:text-jusblue-900 dark:hover:text-sky-300 font-bold text-xs break-all flex items-center gap-1.5 hover:underline"
+            title="Abrir site oficial do assistente em nova aba"
+          >
+            <span>https://ofetino-4jec-capital-cabedelo.ofetinosolucoes.chatgpt.site/</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] flex-shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- Botões de Ação do QR Code -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button 
+            type="button" 
+            onclick="copyPortalUrl()" 
+            class="w-full bg-jusblue-700 hover:bg-jusblue-800 active:scale-95 text-white font-semibold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
+          >
+            <i class="fa-regular fa-copy"></i>
+            <span>Copiar Link</span>
+          </button>
+          
+          <a 
+            href="https://ofetino-4jec-capital-cabedelo.ofetinosolucoes.chatgpt.site/" 
+            target="_blank" 
+            class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition"
+          >
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Abrir Site</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Rodapé do Modal -->
+      <div class="p-3 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
+        <span class="text-[11px]">Compatível com Android, iOS e PC</span>
+        <button onclick="closeQrModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs transition">
+          Fechar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: DÚVIDAS E PRECEDENTES QUALIFICADOS -->
+  <div id="faqModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full h-[90vh] max-h-[820px] shadow-2xl flex flex-col overflow-hidden border border-slate-200 dark:border-slate-800 animate-bubble">
+      
+      <div class="bg-jusblue-950 text-white p-3.5 sm:p-4 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-book-open text-amber-400"></i>
+          <div>
+            <h3 class="font-bold text-sm sm:text-base">Base de Conhecimento Oficial & Jurisprudência</h3>
+            <span class="text-[11px] text-sky-200">Dúvidas, Precedentes Qualificados STJ/CNJ e Rotinas</span>
+          </div>
+        </div>
+        <button onclick="closeFaqModal()" class="text-slate-300 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-3 bg-slate-50 dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 flex flex-col gap-2 flex-shrink-0">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input 
+            type="text" 
+            id="faqSearchInput" 
+            oninput="filterFaqItems()" 
+            placeholder="Pesquisar (ex: súmula 479, desvio produtivo, golpe pix, compra online, serasa, aluguel)..." 
+            class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-jusblue-600 dark:focus:border-sky-500 text-slate-800 dark:text-slate-100 rounded-xl py-2 pl-8 pr-3 text-xs outline-none shadow-inner"
+          />
+        </div>
+
+        <div class="flex gap-1.5 overflow-x-auto text-[11px] pb-1 no-scrollbar">
+          <button onclick="setFaqFilter('todas', this)" class="faq-filter-btn bg-jusblue-700 text-white px-2.5 py-0.5 rounded-full font-semibold">Todas</button>
+          <button onclick="setFaqFilter('precedentes_jurimetria', this)" class="faq-filter-btn bg-amber-200 dark:bg-amber-900/60 text-amber-950 dark:text-amber-200 px-2.5 py-0.5 rounded-full font-bold">⭐ Precedentes STJ/CNJ</button>
+          <button onclick="setFaqFilter('execucoes_penhoras', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">🔨 Execuções & Penhoras</button>
+          <button onclick="setFaqFilter('profissionais_estetica', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">🩺 Saúde & Profissionais</button>
+          <button onclick="setFaqFilter('compras', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Compras & Entregas</button>
+          <button onclick="setFaqFilter('bancos', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Bancos & Pix</button>
+          <button onclick="setFaqFilter('viagens', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Aviação & Viagens</button>
+          <button onclick="setFaqFilter('telefonia', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Telefonia & Internet</button>
+          <button onclick="setFaqFilter('vizinhanca', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Vizinhança & Serviços</button>
+          <button onclick="setFaqFilter('pje_regras', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">PJe & Processo</button>
+          <button onclick="setFaqFilter('saude_danos', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Saúde & Danos</button>
+          <button onclick="setFaqFilter('cartorio_balcao', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Cartório & Balcão</button>
+          <button onclick="setFaqFilter('fraudes_encerramento', this)" class="faq-filter-btn bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-0.5 rounded-full font-medium">Fraudes & Vícios</button>
+        </div>
+      </div>
+
+      <div id="faqListContainer" class="flex-1 overflow-y-auto p-3 space-y-2 bg-slate-100 dark:bg-slate-900"></div>
+
+      <div class="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
+        <span id="faqCountLabel">Exibindo Dúvidas & Precedentes</span>
+        <button onclick="closeFaqModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl text-xs transition">
+          Fechar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPT CENTRAL E BASE DE CONHECIMENTO -->
+  <script>
+    // Safe Storage Wrapper
+    const safeStore = {
+      get: function(key) {
+        try { return localStorage.getItem(key); } catch (e) { return null; }
+      },
+      set: function(key, val) {
+        try { localStorage.setItem(key, val); } catch (e) {}
+      }
+    };
+
+    /* Unidade Judiciária Oficial */
+    const UNIT_DATA = {
+      name: '4º Juizado Especial Cível de João Pessoa e Cabedelo',
+      shortName: '4º JEC de João Pessoa e Cabedelo',
+      jurisdiction: 'Unidade judiciária única que abrange as Comarcas de João Pessoa e Cabedelo',
+      forum: 'Fórum Cível Des. Mário Moacyr Porto',
+      address: 'Av. João Machado, s/n - Centro, João Pessoa - PB, CEP: 58013-520',
+      whatsapp: '(83) 99144-1428',
+      whatsappClean: '5583991441428',
+      balcaoUrl: 'https://balcaovirtualtjpb.tjpb.jus.br/?groupID=677ffc6706cbc74dc24065d9&subgroupID=677ffd8906cbc74dc24065dc&deskID=6798fa90098b13d618a8fa57',
+      email: 'jpa-jciv04@tjpb.jus.br',
+      atermacaoUrl: 'https://app.tjpb.jus.br/peca-voce-juizados/',
+      pjeUrl: 'https://pje.tjpb.jus.br/pje/ConsultaPublica/listView.seam',
+      custasUrl: 'https://app.tjpb.jus.br/custasonline/',
+      portalUrl: 'https://ofetino-4jec-capital-cabedelo.ofetinosolucoes.chatgpt.site/',
+      schedule: 'Segunda a Sexta-feira, das 07h00 às 17h00'
+    };
+
+    const FAQ_DATA = [
+      { id: 1, cat: 'cartorio_balcao', q: "Qual é o horário de funcionamento do 4º Juizado Especial Cível?", a: "O nosso horário de atendimento (expediente forense) é de segunda a sexta-feira, das 07h00 às 17h00, seguindo o horário regimental do TJPB." },
+      { id: 2, cat: 'cartorio_balcao', q: "Onde o 4º Juizado está localizado?", a: "Estamos localizados no Fórum Cível Des. Mário Moacyr Porto. O endereço completo é Av. João Machado, s/n - Centro, João Pessoa - PB, CEP: 58013-520." },
+      { id: 3, cat: 'cartorio_balcao', q: "Qual é o WhatsApp do cartório para contato direto?", a: "O WhatsApp oficial do nosso cartório é o (83) 99144-1428. O atendimento ocorre de segunda a sexta, das 07h00 às 17h00." },
+      { id: 4, cat: 'cartorio_balcao', q: "Posso mandar e-mail para o Cartório? Qual o endereço?", a: "Sim, o e-mail institucional oficial da unidade é jpa-jciv04@tjpb.jus.br." },
+      { id: 5, cat: 'cartorio_balcao', q: "Como funciona e como acesso o Balcão Virtual?", a: "O Balcão Virtual é uma sala de videoconferência para atendimento ao vivo. Acesse pelo link oficial da serventia (dias úteis, 07h às 17h)." },
+      { id: 6, cat: 'cartorio_balcao', q: "O Juizado atende casos de Cabedelo?", a: "Sim, o 4º Juizado Especial Cível é uma unidade judiciária única que abrange, de forma unificada e cumulada, as comarcas de João Pessoa e Cabedelo." },
+      { id: 7, cat: 'cartorio_balcao', q: "Quem é o Ofetino?", a: "Sou o Ofetino, o assistente virtual oficial do 4º Juizado Especial Cível da Capital e Cabedelo (TJPB)." },
+      { id: 8, cat: 'cartorio_balcao', q: "Preciso agendar para ser atendido no Balcão Virtual?", a: "Não. Basta acessar o link da sala virtual durante o expediente (07h00 às 17h00) e aguardar o atendimento pelo servidor." },
+      { id: 9, cat: 'pje_regras', q: "Onde posso consultar se o sistema do TJPB está funcionando?", a: "Você pode verificar a disponibilidade do PJe e serviços através do portal oficial do Tribunal de Justiça da Paraíba (tjpb.jus.br)." },
+      { id: 10, cat: 'cartorio_balcao', q: "O cartório pode dar orientação jurídica?", a: "Não. Nossa função é orientar sobre o andamento do processo e os serviços do Juizado. Para consultoria legal, procure um advogado ou a Defensoria Pública." },
+      { id: 11, cat: 'pje_regras', q: "Qual é o valor máximo para entrar com um processo no JEC?", a: "O Juizado Especial Cível julga causas com valor que não exceda a 40 vezes o salário mínimo." },
+      { id: 12, cat: 'pje_regras', q: "É obrigatório ter advogado no Juizado?", a: "Para causas de até 20 salários mínimos, você pode dar entrada sem advogado. Para causas entre 20 e 40 salários mínimos, e na fase recursal, o advogado é obrigatório." },
+      { id: 13, cat: 'pje_regras', q: "Preciso pagar para entrar com um processo?", a: "O acesso ao Juizado e o trâmite até a sentença de 1º grau são 100% gratuitos (isenção do art. 54 da Lei 9.099/95). Só há custas em recurso ou falta injustificada." },
+      { id: 14, cat: 'pje_regras', q: "Quem PODE entrar com processo no JEC (Autor)?", a: "Somente pessoas físicas capazes e microempresas (ME e EPP). O maior de 18 anos pode ser autor independentemente de assistência legal." },
+      { id: 15, cat: 'pje_regras', q: "Quem NÃO PODE processar ou ser processado no JEC?", a: "É vedado o processo envolvendo o incapaz, o preso, pessoas jurídicas de direito público, empresas públicas da União, massa falida e insolvente civil." },
+      { id: 16, cat: 'pje_regras', q: "O Juizado resolve causas de família ou pensão alimentícia?", a: "Não. Ficam expressamente excluídas do Juizado ações de natureza alimentar, falimentar, acidentes de trabalho e relativas ao estado e capacidade das pessoas, como divórcio." },
+      { id: 17, cat: 'pje_regras', q: "O JEC julga processos contra o Estado ou Município?", a: "Não. Causas de interesse da Fazenda Pública são excluídas do Juizado Especial Cível comum (pertencem ao Juizado Especial da Fazenda Pública)." },
+      { id: 18, cat: 'vizinhanca', q: "Ação de despejo pode ser julgada aqui?", a: "Sim, o Juizado Especial Cível tem competência para julgar ação de despejo, mas exclusivamente para uso próprio do imóvel." },
+      { id: 19, cat: 'bancos', q: "Títulos como cheques e notas promissórias podem ser cobrados aqui?", a: "Sim. O Juizado realiza a execução de títulos executivos extrajudiciais (como notas promissórias, cheques e contratos) com valor até 40 salários mínimos." },
+      { id: 20, cat: 'pje_regras', q: "Uma empresa que é ré pode mandar um representante (preposto)?", a: "Sim. Sendo pessoa jurídica ou firma individual, o réu pode ser representado por preposto credenciado com carta de preposição." },
+      { id: 21, cat: 'pje_regras', q: "Quero abrir um processo sem advogado. Como faço?", a: "Você pode formular seu pedido através do sistema 'Peça Você Mesmo' do TJPB acessando o link oficial (app.tjpb.jus.br/peca-voce-juizados)." },
+      { id: 22, cat: 'pje_regras', q: "Quais documentos preciso para abrir a ação pelo Peça Você Mesmo?", a: "RG, CPF, comprovante de residência atualizado em João Pessoa ou Cabedelo, dados completos do réu e todas as provas do fato." },
+      { id: 23, cat: 'pje_regras', q: "O que serve como prova no meu processo?", a: "Fotos, prints de WhatsApp, notas fiscais, contratos, protocolos de atendimento, orçamentos, vídeos e testemunhas." },
+      { id: 24, cat: 'saude_danos', q: "O JEC atende casos de acidentes de trânsito?", a: "Sim, cobramos e reparamos danos decorrentes de acidentes de trânsito ocorridos em João Pessoa ou Cabedelo, desde que não exijam perícia complexa." },
+      { id: 25, cat: 'telefonia', q: "Sofri danos com empresa aérea, luz ou água. Posso processar?", a: "Sim, causas de direito do consumidor e ressarcimento de danos de menor complexidade fazem parte da nossa competência." },
+      { id: 31, cat: 'pje_regras', q: "Como consultar o andamento do meu processo?", a: "Acesse a Consulta Pública do PJe do TJPB através do link oficial (pje.tjpb.jus.br/pje/ConsultaPublica/listView.seam)." },
+      { id: 32, cat: 'pje_regras', q: "Os prazos no Juizado são em dias corridos ou úteis?", a: "Os prazos processuais nos Juizados Especiais são contados em dias úteis, conforme o art. 12-A da Lei 9.099/95 e o CPC/2015." },
+      { id: 33, cat: 'pje_regras', q: "Ganhei o processo. Quanto tempo a empresa tem para pagar?", a: "Proferida a condenação, se o réu não cumprir voluntariamente em até 10 (dez) dias úteis, iniciam-se de imediato os atos de execução forçada, independente de nova citação." },
+      { id: 35, cat: 'cartorio_balcao', q: "Onde emito guias para pagar as custas (em caso de recurso ou falta)?", a: "Você deve acessar o Portal de Custas Online do TJPB pelo link oficial (app.tjpb.jus.br/custasonline)." },
+      { id: 41, cat: 'cartorio_balcao', q: "Posso participar de audiência de bermuda ou regata?", a: "Não. É expressamente proibido comparecer às audiências trajando shorts, bermudas, camiseta regata ou semelhantes. É obrigatório também portar documento original com foto." },
+      { id: 42, cat: 'cartorio_balcao', q: "O que acontece se eu (AUTOR) faltar à audiência?", a: "A ausência injustificada do autor implica na extinção e arquivamento imediato do processo, e poderá gerar condenação ao pagamento de custas." },
+      { id: 43, cat: 'cartorio_balcao', q: "O que acontece se a outra parte (RÉU) faltar à audiência?", a: "Se o réu não comparecer, ocorre a revelia: os fatos alegados pelo autor na petição inicial serão presumidos verdadeiros e o juiz poderá julgar a causa de imediato." },
+      { id: 44, cat: 'cartorio_balcao', q: "Quantas testemunhas posso levar na audiência?", a: "Podem ser ouvidas no máximo 3 testemunhas para cada parte na Audiência de Instrução." },
+      { id: 45, cat: 'cartorio_balcao', q: "O que fazer se minha testemunha não quiser ir à audiência?", a: "Solicite à Secretaria do Juizado a intimação formal da testemunha com no mínimo 5 dias de antecedência da data da audiência." },
+      { id: 47, cat: 'cartorio_balcao', q: "Minha audiência será on-line. Como entro na sala?", a: "Para obter links das salas virtuais ou informações da sua pauta, chame nossa equipe no WhatsApp: (83) 99144-1428 (das 07h00 às 17h00)." },
+      { id: 48, cat: 'pje_regras', q: "Não concordei com a sentença do Juiz. Posso recorrer?", a: "Sim. O recurso inominado contra a sentença é julgado pela Turma Recursal e deve ser interposto no prazo de 10 dias úteis com advogado." },
+      { id: 51, cat: 'saude_danos', q: "Bati o carro. Posso processar o motorista que causou o acidente aqui?", a: "Sim. O Juizado Especial Cível julga ações de cobrança e reparação de danos causados por acidentes de trânsito em João Pessoa ou Cabedelo." },
+      { id: 52, cat: 'compras', q: "Comprei um produto na internet e nunca chegou. Cabe no Juizado?", a: "Sim. Problemas com compras online, atrasos na entrega ou produtos com defeito são causas típicas do Juizado (até 40 salários mínimos)." },
+      { id: 53, cat: 'bancos', q: "Emprestei dinheiro para um conhecido e ele não me pagou. Posso cobrar no Juizado?", a: "Sim. Ação de cobrança comum. Apresente comprovantes de Pix, recibos ou conversas de WhatsApp onde a pessoa reconhece a dívida." },
+      { id: 54, cat: 'bancos', q: "Meu nome foi parar no SPC/Serasa por uma dívida que eu não fiz. O Juizado resolve?", a: "Sim. Você pode pedir que o Juiz ordene a retirada do nome do SPC/Serasa e ainda pleitear indenização por danos morais." },
+      { id: 56, cat: 'viagens', q: "Tive um voo cancelado ou minha bagagem foi perdida. Posso processar a companhia aérea?", a: "Sim. Você pode buscar o ressarcimento dos gastos extras que teve e pedir indenização pelos transtornos sofridos." },
+      { id: 57, cat: 'vizinhanca', q: "O inquilino não pagou o aluguel. Posso pedir para tirar ele do imóvel?", a: "Sim, mas o Juizado Especial Cível só aceita a ação de despejo se for para uso próprio do imóvel." },
+      { id: 58, cat: 'bancos', q: "Posso processar o banco por cobranças indevidas no meu cartão de crédito?", a: "Sim. Juros abusivos, tarifas não contratadas ou compras fraudadas no cartão são causas comuns resolvidas no nosso Juizado." },
+      { id: 60, cat: 'vizinhanca', q: "O cachorro do vizinho mordeu alguém da minha família. Posso pedir indenização?", a: "Sim. O tutor do animal pode ser responsabilizado no Juizado para pagar os gastos médicos e reparar os danos." },
+      { id: 61, cat: 'pje_regras', q: "O que é 'Petição Inicial'?", a: "É o documento que começa o processo. É a reclamação formal onde se narra a história, faz os pedidos e anexa as provas." },
+      { id: 63, cat: 'pje_regras', q: "O que é 'Liminar' ou 'Tutela de Urgência'?", a: "É uma decisão provisória rápida do Juiz antes do fim do processo para resguardar direito urgente (ex: cirurgia ou desnegativação)." },
+      { id: 66, cat: 'pje_regras', q: "O que é 'Trânsito em Julgado'?", a: "É quando o processo chega ao fim definitivo. Significa que a decisão transitou e não cabe mais nenhum recurso." },
+      { id: 67, cat: 'pje_regras', q: "O que é 'Revelia'?", a: "Consequência aplicada ao réu ausente na audiência ou sem defesa: os fatos alegados pelo autor na inicial são presumidos verdadeiros." },
+      { id: 68, cat: 'bancos', q: "O que é 'Alvará Judicial'?", a: "Ordem eletrônica do Juiz que autoriza a transferência do dinheiro ganho no processo diretamente para a conta bancária do credor." },
+      { id: 101, cat: 'telefonia', q: "A internet da minha casa cai toda hora. Posso pedir indenização?", a: "Sim. Com protocolos de atendimento e reclamações comprovadas, cabe abatimento proporcional e danos morais." },
+      { id: 102, cat: 'bancos', q: "Clonaram meu WhatsApp e meus amigos fizeram Pix para o golpista.", a: "Pode-se processar a operadora de telefonia (por falha de segurança na clonagem) e o banco recebedor do Pix para restituição." },
+      { id: 103, cat: 'bancos', q: "Fiz um Pix por engano para a pessoa errada e ela não quer devolver.", a: "Ação de enriquecimento ilícito contra o recebedor. O comprovante com dados do Pix serve como prova para ordem de devolução." },
+      { id: 104, cat: 'fraudes_encerramento', q: "Comprei um carro usado em garagem e o motor fundiu na mesma semana.", a: "Lojas têm garantia legal de 90 dias para defeitos ocultos (Art. 26 CDC). Cabe processo contra a concessionária ou revenda." },
+      { id: 107, cat: 'bancos', q: "Meu nome está no Serasa por uma dívida de 10 anos atrás. Pode isso?", a: "Não. Dívidas prescrevem após 5 anos para negativação. Você pode exigir a baixa imediata e indenização." },
+      { id: 108, cat: 'saude_danos', q: "Plano de saúde negou exame ou cirurgia alegando carência. O Juizado resolve?", a: "Sim. Em caso de urgência ou emergência médica atestada, a carência reduz-se a 24 horas. Cabe liminar urgente." },
+      { id: 111, cat: 'pje_regras', q: "Áudio de WhatsApp serve como prova no processo?", a: "Sim! Áudios, vídeos e prints de conversas são provas totalmente válidas nos Juizados Especiais." },
+      { id: 112, cat: 'pje_regras', q: "Posso gravar uma ligação com a empresa sem avisar o atendente?", a: "Sim. A gravação de conversa feita por um dos próprios interlocutores é legal e admitida como prova na Justiça." },
+      { id: 121, cat: 'cartorio_balcao', q: "Se eu aceitar um acordo na audiência, posso me arrepender no dia seguinte?", a: "Não. O acordo assinado e homologado pelo Juiz tem força de sentença irrecorrível. Não cabe arrependimento nem recurso." },
+      { id: 131, cat: 'bancos', q: "Ganhei o processo, mas a empresa fechou as portas e sumiu. Perdi tudo?", a: "Não. Pode-se requerer a Desconsideração da Personalidade Jurídica para atingir contas e bens dos sócios da empresa." },
+      { id: 133, cat: 'vizinhanca', q: "O devedor tem uma casa linda, posso pedir pro Juiz penhorar?", a: "O único imóvel residencial onde a pessoa e sua família residem é Bem de Família e é impenhorável por dívidas comuns." },
+      { id: 156, cat: 'vizinhanca', q: "Meu vizinho liga o som no máximo todo fim de semana e não consigo dormir.", a: "Perturbação do sossego cabe ação no Juizado com pedido de obrigação de não fazer (sob pena de multa) e danos morais." },
+      { id: 161, cat: 'pje_regras', q: "Sou MEI. Preciso pagar para processar um caloteiro?", a: "Não. O MEI e as Microempresas contam com isenção total de custas no 1º grau de jurisdição dos Juizados." },
+      { id: 171, cat: 'viagens', q: "Motorista de aplicativo cancelou ou atrasou e perdi meu voo.", a: "Plataformas de transporte por app respondem por prejuízos materiais comprovados (passagem) e danos morais." },
+      { id: 201, cat: 'compras', q: "Comprei na internet e me arrependi. Posso devolver?", a: "Sim. O Art. 49 do CDC garante o Direito de Arrependimento de até 7 dias corridos após o recebimento para compras online." },
+      { id: 202, cat: 'compras', q: "Comprei em loja física e me arrependi. A loja é obrigada a devolver?", a: "Não. O arrependimento de 7 dias só vale fora do estabelecimento. Em loja física a troca por arrependimento é cortesia da loja." },
+      { id: 203, cat: 'compras', q: "A loja prometeu entregar em 5 dias e já passou um mês.", a: "Descumprimento de oferta. Você pode exigir a entrega imediata, aceitar produto equivalente ou pedir cancelamento com dinheiro de volta." },
+      { id: 204, cat: 'compras', q: "Comprei um celular e veio com defeito. A loja diz que é com a fabricante.", a: "Loja e fabricante respondem solidariamente. Você pode acionar a loja onde efetuou a compra ou a fabricante." },
+      { id: 205, cat: 'compras', q: "O produto foi para assistência técnica e já faz mais de 30 dias.", a: "Após 30 dias sem conserto, você tem direito a produto novo, restituição imediata do dinheiro ou abatimento proporcional." },
+      { id: 221, cat: 'bancos', q: "Tem um empréstimo no meu INSS que eu nunca fiz.", a: "Fraude bancária. Cabe pedido de suspensão imediata dos descontos, devolução em dobro do montante retido e danos morais." },
+      { id: 225, cat: 'bancos', q: "Meu cartão foi clonado. O banco é obrigado a cancelar as compras?", a: "Sim. Compras efetuadas mediante fraude devem ser estornadas pelo emissor do cartão de crédito." },
+      { id: 241, cat: 'viagens', q: "Cheguei no aeroporto e me disseram que o voo estava em Overbooking.", a: "A preterição de embarque é prática abusiva. A companhia deve realocar, prestar assistência e responder por danos morais." },
+      { id: 242, cat: 'viagens', q: "Meu voo atrasou 5 horas e não me deram assistência.", a: "Atrasos superiores a 4h exigem assistência material (alimentação e hospedagem). A ausência gera reparação por danos morais." },
+      { id: 245, cat: 'viagens', q: "Comprei ida e volta. Perdi a ida e cancelaram a minha volta.", a: "O cancelamento unilateral do voo de volta (No-Show abusivo) é rechaçado pela jurisprudência, ensejando danos morais e restituição." },
+      { id: 261, cat: 'telefonia', q: "Fiquei sem internet em casa por 3 dias. Quero meu dinheiro.", a: "A operadora deve descontar proporcionalmente os dias sem conexão na fatura, respondendo por danos morais se houver prejuízo severo." },
+      { id: 268, cat: 'telefonia', q: "Cortaram minha luz ou internet em uma sexta-feira à noite.", a: "A legislação veda a suspensão de serviços essenciais por inadimplência em sextas-feiras, fins de semana e vésperas de feriados." },
+      { id: 281, cat: 'vizinhanca', q: "Vizinho abriu oficina mecânica na rua e faz barulho o dia todo.", a: "Perturbação do sossego autoriza ação com pedido de tutela para adequação acústica e cessação dos ruídos sob pena de multa diária." },
+      { id: 288, cat: 'vizinhanca', q: "O condomínio proibiu meu animal de estimação no elevador.", a: "Normas internas não podem proibir genericamente animais de pequeno porte, apenas regulamentar o trânsito com segurança." },
+      { id: 301, cat: 'pje_regras', q: "Tive sentença favorável, mas o réu recorreu. Recebo de imediato?", a: "Não. O recurso inominado com efeito suspensivo remete os autos à Turma Recursal, aguardando julgamento colegiado." },
+      { id: 314, cat: 'pje_regras', q: "O réu não foi encontrado em nenhum endereço. O que acontece?", a: "O processo é extinto sem resolução de mérito, pois a Lei 9.099/95 proíbe expressamente a citação por edital no JEC." },
+      { id: 319, cat: 'pje_regras', q: "Preciso assinar alvará pessoalmente no fórum?", a: "Não. A expedição dos alvarás é realizada de forma 100% eletrônica integrada com as instituições financeiras oficiais." },
+      { id: 328, cat: 'saude_danos', q: "Estacionamento com placa: 'Não nos responsabilizamos por furtos'.", a: "Conforme a Súmula 130 do STJ, a empresa responde pela reparação de dano ou furto de veículo ocorridos em seu estacionamento." },
+      { id: 340, cat: 'pje_regras', q: "Cobrança de saldo de rescisão e verbas do trabalho no JEC.", a: "A competência para processar litígios decorrentes da relação de trabalho é exclusiva da Justiça do Trabalho (Art. 114 da CF/88)." },
+      { id: 381, cat: 'fraudes_encerramento', q: "Aparelho eletrônico que quebrou logo após expirar a garantia contratual.", a: "Em se tratando de vício oculto em bem durável, o prazo tem início quando o defeito se manifesta (critério da vida útil)." },
+      { id: 392, cat: 'saude_danos', q: "Cancelamento de plano de saúde por atraso sem notificação formal até o 50º dia.", a: "A rescisão do plano de saúde individual exige prévia notificação formal do consumidor até o quinquagésimo dia de inadimplência." },
+      { id: 400, cat: 'cartorio_balcao', q: "Posso elogiar o atendimento dos servidores e juízes do 4º Juizado?", a: "Com certeza! Toda a equipe do 4º Juizado trabalha para prestar um atendimento rápido e humano. Elogios podem ser enviados pelo Balcão Virtual!" },
+      { id: 401, cat: 'precedentes_jurimetria', q: "Por que causas de pensão alimentícia, falência e Fazenda Pública não cabem no JEC comum?", a: "A proibição fundamenta-se na incompatibilidade material com o rito sumaríssimo da Lei nº 9.099/95. Alimentos exigem Ministério Público e perícias psicossociais. Falências envolvem concurso universal de credores. E a Fazenda Pública possui prerrogativas próprias de prazo alocadas exclusivamente na Lei nº 12.153/2009." },
+      { id: 402, cat: 'precedentes_jurimetria', q: "Por que a fase de cumprimento de sentença/execução demora mais do que a fase inicial no Juizado?", a: "Dados do anuário Justiça em Números (CNJ/DataJud) revelam que a fase de conhecimento dura em média 2 anos e 7 meses, enquanto a execução atinge taxa de congestionamento superior a 70% devido à blindagem de bens e buscas frustradas nos sistemas eletrônicos." },
+      { id: 403, cat: 'precedentes_jurimetria', q: "O que é o Tema 1.198 do STJ e como o juiz combate a litigância predatória?", a: "O Tema 1.198 do STJ fixou que, diante de indícios concretos de ajuizamento abusivo e serial, o magistrado tem o poder-dever de exigir a emenda da petição inicial (procuração recente e comprovante idôneo), sob pena de extinção sem mérito." },
+      { id: 404, cat: 'precedentes_jurimetria', q: "O que diz a Teoria do Desvio Produtivo do Consumidor (Marcos Dessaune) no STJ?", a: "Defende que o tempo vital do consumidor é escasso e não recuperável. Quando o fornecedor impõe peregrinação burocrática injustificada, há dano temporal indenizável (REsp 1.737.412/3ª Turma STJ), com cautela da 4ª Turma contra a banalização." },
+      { id: 405, cat: 'precedentes_jurimetria', q: "Reclamar antes no Consumidor.gov.br ou Procon é obrigatório para comprovar 'Interesse de Agir'?", a: "A jurisprudência contemporânea (inclusive no TJPB) vem entendendo que a provocação prévia dos canais oficiais pode ser exigida para caracterizar a pretensão resistida e o interesse de agir, evitando o ajuizamento per saltum." },
+      { id: 406, cat: 'precedentes_jurimetria', q: "O que prevê a Súmula 479 do STJ sobre golpes bancários, clonagem e fraudes no PIX?", a: "A Súmula 479 do STJ consolida que 'as instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias'." },
+      { id: 407, cat: 'precedentes_jurimetria', q: "O que determina a Resolução CNJ nº 547/2024 sobre execuções fiscais paralisadas?", a: "Com base no Tema 1.184 do STF, determina a extinção de execuções fiscais com valor inferior a R$ 10.000,00 paralisadas há mais de 1 ano sem citação ou sem bens localizados, por falta de interesse de agir decorrente da ineficiência econômica." },
+      { id: 408, cat: 'precedentes_jurimetria', q: "Por que a Súmula 385 do STJ impede dano moral se a pessoa já tinha o nome sujo legitimamente?", a: "A Súmula 385 do STJ estipula que a anotação irregular em cadastro restritivo não gera dano moral quando o consumidor já possuir inscrições negativas preexistentes legítimas, garantindo-se apenas o cancelamento do registro indevido." },
+      { id: 409, cat: 'precedentes_jurimetria', q: "Qual o papel do NUMOPEDE e dos Centros de Inteligência (Recomendação CNJ 159/2024)?", a: "Os Núcleos de Monitoramento de Perfis de Demandas utilizam jurimetria no DataJud para identificar ações predatórias e distribuição em massa com documentos adulterados, emitindo notas técnicas que respaldam os juízes a barrar fraudes." },
+      { id: 410, cat: 'precedentes_jurimetria', q: "Como a Lei do Superendividamento (Lei 14.181/2021) ajuda consumidores endividados?", a: "Instituiu o procedimento de repactuação global de dívidas em bloco com todos os credores reunidos, garantindo a proteção ao mínimo existencial e substituindo a proliferação de ações isoladas nos Juizados." },
+      { id: 451, cat: 'execucoes_penhoras', q: "O Oficial de Justiça pode entrar na casa do devedor para procurar bens?", a: "Sim. A lei permite a 'penhora portas adentro'. O Oficial de Justiça vai à residência do devedor e relaciona bens de valor que possam ser usados para pagar a dívida." },
+      { id: 452, cat: 'execucoes_penhoras', q: "O juiz pode mandar penhorar a geladeira e o fogão do réu?", a: "Não. Bens essenciais para a sobrevivência digna da família e para a guarnição básica da casa (geladeira, fogão, camas) são considerados impenhoráveis pela lei." },
+      { id: 453, cat: 'execucoes_penhoras', q: "E se o devedor tiver 3 televisões enormes em casa?", a: "Nesse caso, o entendimento muda. Apenas uma televisão é considerada essencial para a família. As outras duas (bens em duplicidade ou considerados artigos de luxo) podem ser penhoradas." },
+      { id: 454, cat: 'execucoes_penhoras', q: "Como funciona o leilão judicial no Juizado?", a: "Quando um bem do devedor é penhorado (ex: um carro), o Juiz nomeia um leiloeiro oficial. O bem é anunciado e vendido em leilão público (geralmente online). O dinheiro arrecadado vai para a sua conta para quitar a dívida." },
+      { id: 455, cat: 'execucoes_penhoras', q: "O juiz penhorou o carro do réu. Eu posso ficar com o carro em vez de mandar para leilão?", a: "Sim! Isso se chama Adjudicação. Se o valor do carro cobrir o valor da sua dívida, você pode pedir ao juiz para transferir o veículo para o seu nome em vez de vendê-lo." },
+      { id: 456, cat: 'execucoes_penhoras', q: "O réu vendeu o carro para um amigo logo depois que o processo começou. E agora?", a: "Isso configura Fraude à Execução. Você pode pedir ao juiz que anule essa venda e determine a penhora do veículo, mesmo que já esteja no nome de terceiros, pois a venda foi feita de má-fé para esconder o patrimônio." },
+      { id: 457, cat: 'execucoes_penhoras', q: "A empresa me deve R$ 10.000,00, mas o bloqueio judicial só achou R$ 2.000,00. Saco e perco o resto?", a: "Não. Você solicita o alvará para sacar os R$ 2.000,00 (pagamento parcial) e o processo continua ativo cobrando os R$ 8.000,00 restantes, com juros, até encontrar novos bens." },
+      { id: 458, cat: 'execucoes_penhoras', q: "Descobri que o devedor vai receber uma herança em outro processo. Posso bloquear?", a: "Sim. Chama-se 'Penhora no Rosto dos Autos'. O juiz do Juizado manda um ofício para o juiz da Vara de Família bloqueando a parte do devedor naquela herança para pagar você primeiro." },
+      { id: 459, cat: 'execucoes_penhoras', q: "O devedor fechou a empresa e abriu outra igualzinha no nome da esposa. O que faço?", a: "Você deve pedir o reconhecimento de 'Sucessão Empresarial' ou 'Grupo Econômico'. Apresente provas (mesmo endereço, mesma atividade) e o juiz mandará penhorar as contas da nova empresa." },
+      { id: 460, cat: 'execucoes_penhoras', q: "Posso penhorar a conta conjunta do devedor com a esposa dele?", a: "Sim. É possível bloquear a conta conjunta, mas a esposa (que não é parte do processo) terá o direito de defender a metade dela (meação), liberando 50% do valor bloqueado." },
+      { id: 461, cat: 'execucoes_penhoras', q: "O banco bloqueou o salário do devedor, e ele pediu de volta alegando impenhorabilidade. E agora?", a: "Regra geral, salários são impenhoráveis. No entanto, se uma pequena porcentagem (ex: 10% a 30%) não comprometer a subsistência dele e de sua família, o juiz pode manter o bloqueio parcial." },
+      { id: 462, cat: 'execucoes_penhoras', q: "O leilão não teve nenhum comprador interessado. O que eu faço?", a: "O juiz pode autorizar um segundo leilão com desconto (geralmente por até 50% do valor de avaliação). Se ainda assim não vender, você deve indicar novos bens." },
+      { id: 463, cat: 'execucoes_penhoras', q: "O Oficial de Justiça foi até a empresa e o galpão estava totalmente vazio (Certidão Negativa).", a: "Você será intimado para indicar novos endereços ou novos bens do devedor. Se não indicar nada no prazo estipulado, o processo será arquivado temporariamente." },
+      { id: 464, cat: 'execucoes_penhoras', q: "O devedor parcelou a condenação em 6 vezes, mas parou de pagar na terceira. O que faço?", a: "O não pagamento de uma parcela acarreta o vencimento antecipado das demais, com incidência da multa legal de 10% sobre o saldo devedor remanescente." },
+      { id: 465, cat: 'execucoes_penhoras', q: "Posso cobrar os juros pelo tempo que o réu atrasou para pagar a condenação?", a: "Sim. A dívida é sempre atualizada monetariamente e acrescida de juros moratórios de 1% ao mês desde a citação até a data do efetivo depósito judicial." },
+      { id: 466, cat: 'execucoes_penhoras', q: "O devedor é o próprio Condomínio. Posso pedir para bloquear a conta corrente deles?", a: "Sim. Contas de condomínios residenciais podem ser bloqueadas via SISBAJUD para adimplemento de dívidas judiciais reconhecidas." },
+      { id: 467, cat: 'execucoes_penhoras', q: "O réu depositou o dinheiro, mas disse que é 'para garantir o juízo' e vai recorrer. Posso sacar?", a: "Não. Quando o depósito é feito apenas como garantia para apresentação de Embargos à Execução, o dinheiro fica indisponível até o julgamento final da defesa." },
+      { id: 468, cat: 'execucoes_penhoras', q: "O devedor me ofereceu um terreno no lugar do dinheiro para quitar a dívida. O JEC aceita?", a: "Sim. É a chamada 'Dação em Pagamento'. Havendo concordância expressa de ambas as partes, junta-se o termo de acordo para homologação judicial." },
+      { id: 469, cat: 'execucoes_penhoras', q: "O que é 'Penhora de Faturamento' da empresa?", a: "É a determinação judicial para retenção de um percentual fixo (ex: 5% a 10%) da receita bruta ou diária da empresa (como recebíveis de cartão de crédito) para quitação da dívida." },
+      { id: 470, cat: 'execucoes_penhoras', q: "O devedor trancou o portão e não deixa o Oficial de Justiça entrar para penhorar os bens.", a: "O Oficial certificará a resistência. O credor pode requerer expedição de mandado com ordem de arrombamento e auxílio de força policial." },
+      { id: 471, cat: 'execucoes_penhoras', q: "Paguei a minha dívida no processo, mas meu nome continua sujo no Serasajud. O que houve?", a: "Após a comprovação da quitação nos autos, o cartório emite a ordem eletrônica de baixa via SERASAJUD, cujo processamento sistêmico leva de 3 a 5 dias úteis." },
+      { id: 472, cat: 'execucoes_penhoras', q: "Na hora que pedi para bloquear as contas, a empresa comprovou que entrou em Recuperação Judicial.", a: "O JEC perde a competência para atos de expropriação. É expedida Certidão de Crédito para que o valor seja habilitado no quadro geral de credores na Vara Empresarial competente." },
+      { id: 473, cat: 'execucoes_penhoras', q: "Descobri que o devedor mudou de estado e levou o carro. Como o Oficial de Justiça da Paraíba vai lá?", a: "O Juízo do 4º JEC expedirá uma Carta Precatória para a Comarca de destino, determinando que o Oficial de Justiça local proceda à penhora e apreensão do veículo." },
+      { id: 474, cat: 'execucoes_penhoras', q: "Existe prazo de validade para eu cobrar a minha sentença (Prescrição)?", a: "Sim. Opera-se a prescrição intercorrente se o processo executivo permanecer inerte por inércia exclusiva do credor por prazo superior ao prazo prescricional do direito material." },
+      { id: 475, cat: 'execucoes_penhoras', q: "O devedor transferiu todo o dinheiro dele para a conta do filho menor de idade.", a: "Havendo evidência de esvaziamento fraudulento de patrimônio direcionado a parentes ou terceiros laranjas, o magistrado pode deferir o bloqueio sobre as contas utilizadas para a fraude." },
+      { id: 476, cat: 'profissionais_estetica', q: "Posso processar um médico por Erro Médico no Juizado Especial?", a: "Cuidado. O JEC só processa causas de menor complexidade que dispensem perícia técnica complexa. Demandas que exijam perícia médica judicial detalhada devem tramitar nas Varas Cíveis comuns." },
+      { id: 477, cat: 'profissionais_estetica', q: "Fiz harmonização facial e minha boca ficou torta. O JEC resolve?", a: "Sim. Procedimentos puramente estéticos consubstanciam obrigação de resultado. Sendo a assimetria ou falha evidente em fotografias e sem exigência de prova pericial complexa, cabe ação no JEC." },
+      { id: 478, cat: 'profissionais_estetica', q: "O veterinário aplicou o remédio errado e meu cachorro morreu.", a: "Cabe ação de indenização por imperícia veterinária. Anexe prontuários, laudos e receitas comprovando o nexo de causalidade para pleitear danos materiais e morais." },
+      { id: 479, cat: 'profissionais_estetica', q: "O arquiteto cobrou o projeto e abandonou a obra pela metade.", a: "Inadimplemento contratual de profissional liberal. Você pode pleitear a devolução proporcional dos valores desembolsados e reparação por prejuízos materiais gerados pelo atraso." },
+      { id: 480, cat: 'profissionais_estetica', q: "Meu advogado não repassou o dinheiro que ganhei em outro processo. Posso processar ele aqui?", a: "Sim. Caracteriza apropriação indevida civil. Você pode cobrar a devolução integral da quantia retida no JEC, além de noticiar a conduta ao Tribunal de Ética da OAB." },
+      { id: 481, cat: 'profissionais_estetica', q: "O contador perdeu o prazo da minha declaração e levei uma multa enorme da Receita Federal.", a: "O contador responde subjetivamente pelos prejuízos oriundos de sua negligência ou imperícia técnica comprovada, devendo ressarcir a multa e penalidades tributárias geradas." },
+      { id: 482, cat: 'profissionais_estetica', q: "Fui à psicóloga e ela contou meus segredos familiares para terceiros.", a: "A violação do dever legal e ético de sigilo profissional gera dano moral indenizável nos Juizados, sem prejuízo da responsabilidade administrativa perante o CRP." },
+      { id: 483, cat: 'profissionais_estetica', q: "Paguei um 'Personal Trainer' adiantado e ele sumiu da academia.", a: "Inexecução culposa de contrato de prestação de serviços. Cabe pedido de ressarcimento dos valores adiantados via Pix/recibo e perdas e danos." },
+      { id: 484, cat: 'profissionais_estetica', q: "A micropigmentação na minha sobrancelha inflamou e tive que ir para o hospital.", a: "Falha na prestação de serviço estético por ausência de assepsia ou teste de alergia. O estabelecimento responde pelos danos materiais (remédios/médicos) e danos estéticos/morais." },
+      { id: 485, cat: 'profissionais_estetica', q: "O laboratório errou meu exame de sangue e deu um falso positivo para doença grave.", a: "Erro de diagnóstico laboratorial de patologia grave (ex: HIV ou neoplasia) gera abalo psicológico severo e dano moral in re ipsa (presumido)." },
+      { id: 486, cat: 'profissionais_estetica', q: "O dentista prometeu uma lente de contato dental perfeita, mas ela caiu na primeira semana.", a: "Tratamentos odontológicos estéticos configuram obrigação de resultado. O profissional deve refazer o procedimento sem custos ou restituir os valores pagos." },
+      { id: 487, cat: 'profissionais_estetica', q: "A clínica de depilação a laser usou a máquina na potência máxima e me causou queimaduras de 2º grau.", a: "A clínica de estética responde objetivamente pelo acidente de consumo, arcando com tratamentos dermatológicos reparadores e indenização por dano estético e moral." },
+      { id: 488, cat: 'profissionais_estetica', q: "Contratei um engenheiro para assinar a obra, o teto caiu e ele diz que a culpa é do pedreiro.", a: "O responsável técnico da obra (com emissão de ART) tem o dever legal de fiscalização e responde solidariamente pelos vícios de solidez e segurança da edificação." },
+      { id: 489, cat: 'profissionais_estetica', q: "O corretor de imóveis me vendeu uma casa, mas omitiu que a rua sofria com alagamentos severos todo ano.", a: "Violação do dever de informação e boa-fé objetiva (Art. 723 do Código Civil). O corretor e a imobiliária respondem pelos prejuízos e podem perder o direito à corretagem." },
+      { id: 490, cat: 'profissionais_estetica', q: "O médico do posto foi extremamente grosseiro, gritou e me humilhou na frente dos pacientes.", a: "A discussão não envolve erro técnico, mas falha grave no dever de urbanidade e respeito ao paciente, passível de reparação por danos morais com prova testemunhal." },
+      { id: 491, cat: 'profissionais_estetica', q: "Contratei uma agência de marketing para minhas redes sociais e eles não entregaram as postagens.", a: "Inadimplemento contratual evidente. É cabível a rescisão com devolução dos honorários pagos antecipadamente e anulação de penalidades contratuais." },
+      { id: 492, cat: 'profissionais_estetica', q: "O nutricionista passou uma dieta com camarão, mesmo eu avisando por escrito que tinha alergia.", a: "Negligência e imperícia na elaboração do plano alimentar que gerou risco ou dano à saúde do paciente ensejam o dever de indenizar por danos morais e despesas médicas." },
+      { id: 493, cat: 'profissionais_estetica', q: "O tatuador fez um desenho completamente torto e diferente do projeto que combinamos.", a: "Falha na execução de obra definitiva de natureza estética. O profissional responde pelo custo das sessões de remoção a laser e danos estéticos/morais." },
+      { id: 494, cat: 'profissionais_estetica', q: "Fui fazer um procedimento coberto pelo plano e o médico exigiu um 'pagamento por fora' (cheque caução).", a: "Prática ilegal e abusiva. É expressamente vedada a exigência de caução, notas promissórias ou cobrança por fora em prestadores credenciados à operadora." },
+      { id: 495, cat: 'profissionais_estetica', q: "O hospital não deixou eu transferir meu pai até eu assinar uma nota promissória da dívida.", a: "Reter paciente ou condicionar alta médica à assinatura de garantia cambial consubstancia coação ilegal e dano moral in re ipsa." },
+      { id: 496, cat: 'profissionais_estetica', q: "Faltou um remédio de alto custo no SUS. Posso processar o Estado aqui no JEC Cível?", a: "Não. Ações que demandam fornecimento de medicamentos em face do Estado da Paraíba ou Municípios devem ser ajuizadas perante o Juizado Especial da Fazenda Pública." },
+      { id: 497, cat: 'profissionais_estetica', q: "O cirurgião plástico prometeu próteses de 300ml e, na mesa de cirurgia, colocou de 200ml sem me avisar.", a: "Violação ao consentimento informado e quebra da obrigação estética contratada. Salvo motivo de iminente risco à vida, a alteração unilateral gera o dever de indenizar." },
+      { id: 498, cat: 'profissionais_estetica', q: "A maquiadora sumiu no dia do meu casamento e tive que me arrumar sozinha.", a: "Descumprimento total de serviço essencial em evento único e irrepetível. A jurisprudência concede a restituição integral do valor e expressiva indenização por danos morais." },
+      { id: 499, cat: 'profissionais_estetica', q: "Paguei as taxas do Detran para um despachante e ele embolsou o dinheiro (não licenciou o carro).", a: "Apropriação indébita de mandatário. Cabe condenação imediata à devolução dos valores com juros e atualização, sem prejuízo de danos morais." },
+      { id: 500, cat: 'profissionais_estetica', q: "A clínica de fisioterapia fechou as portas falida antes de eu terminar minhas 10 sessões de RPG pagas antecipadamente.", a: "Enriquecimento sem causa da empresa. Cabe ação de restituição no JEC com pedido de desconsideração da personalidade jurídica para atingir o patrimônio pessoal dos sócios." },
+      { id: 601, cat: 'vizinhanca', q: "Meu vizinho construiu a janela espiando pro meu quintal. Posso mandar fechar pelo Juizado?", a: "Pode sim! É uma questão de 'Direito de Vizinhança'. Se a obra for simples e não precisar de perícia complexa de engenharia, o Juizado pode determinar que ele feche a visão ou adeque a janela aos limites da lei." },
+      { id: 602, cat: 'vizinhanca', q: "O cachorro da vizinha não para de latir de madrugada. O Juizado dá jeito nisso?", a: "Dá jeito sim. A perturbação do sossego dá direito a processo. Você pode pedir que a vizinha seja multada e obrigada a manter o silêncio, além de indenização por danos morais. Grave os latidos e junte testemunhas." },
+      { id: 603, cat: 'vizinhanca', q: "A árvore do vizinho tá quebrando meu muro, mas ele não quer cortar. O que eu faço?", a: "O dono da árvore é responsável pelos danos que raízes e galhos causam. No Juizado, você pode pedir que o juiz obrigue o corte do que ultrapassa a divisa e cobre o conserto do muro." },
+      { id: 604, cat: 'vizinhanca', q: "Posso pedir indenização porque o filho do vizinho chutou a bola e quebrou minha vidraça?", a: "Pode! Os pais respondem civilmente pelos atos dos filhos menores. Apresente os orçamentos da vidraçaria e processe os pais da criança." },
+      { id: 605, cat: 'vizinhanca', q: "Meu vizinho faz churrasco todo domingo e a fumaça vem toda pra minha sala. Cabe processo?", a: "Cabe sim. O uso nocivo da propriedade que prejudica a saúde ou o sossego é ilícito. O juiz pode ordenar a instalação de chaminé adequada ou o redirecionamento da fumaça sob pena de multa." },
+      { id: 606, cat: 'vizinhanca', q: "A infiltração do vizinho de cima tá estragando meu teto, mas ele finge que não é com ele. E aí?", a: "Você pode processá-lo para que repare o vazamento e custeie a reforma do seu teto (gesso e pintura). Registre fotos, vídeos e laudo simples de encanador." },
+      { id: 607, cat: 'vizinhanca', q: "O dono do mercadinho aqui da rua colocou caixas na minha calçada e não consigo entrar com o carro.", a: "Obstruir entrada de garagem viola o direito de ir e vir. No Juizado você pode pleitear ordem liminar para desobstrução imediata da calçada sob pena de multa diária." },
+      { id: 608, cat: 'vizinhanca', q: "Emprestei minha furadeira pro meu cunhado e ele sumiu com ela. Posso processar a família?", a: "Processe especificamente quem pegou o bem. Mensagens de WhatsApp comprovando o empréstimo bastam para o juiz determinar a devolução ou o ressarcimento do valor de uma nova." },
+      { id: 609, cat: 'vizinhanca', q: "O vizinho puxou um 'gato' na minha energia. O Juizado Cível prende ele?", a: "O Juizado Cível não aplica pena de prisão, mas condena a ressarcir todo o prejuízo financeiro da conta de luz. Para a apuração do crime de furto de energia, registre Boletim de Ocorrência na Polícia Civil." },
+      { id: 610, cat: 'vizinhanca', q: "Paguei o marceneiro da rua de baixo pra fazer um armário, ele não fez e ainda me bloqueou no Zap.", a: "Trata-se de descumprimento contratual. Anexe comprovantes do Pix e prints das conversas para requerer a restituição integral do valor corrigido e eventuais perdas e danos." },
+      { id: 611, cat: 'cartorio_balcao', q: "Tenho muito medo de falar com o juiz. Eu sou obrigado a falar bonito?", a: "De jeito nenhum! O Juizado Especial é norteado pela simplicidade e informalidade. Conte sua versão com sinceridade, respeito e palavras simples; o magistrado quer apenas entender os fatos." },
+      { id: 612, cat: 'cartorio_balcao', q: "Se eu chorar de nervoso na audiência, eu perco a causa?", a: "Não. Fique tranquilo. O julgamento depende estritamente das provas apresentadas (documentos, fotos, notas, conversas) e do direito aplicável, e não do nervosismo momentâneo." },
+      { id: 613, cat: 'cartorio_balcao', q: "Posso levar minha filha pequena no dia da audiência porque não tenho com quem deixar?", a: "O recomendável é não levar crianças para evitar cansaço e ruídos na sala. Se for imprescindível, haverá bom senso. Se a audiência for virtual, procure um cômodo silencioso." },
+      { id: 614, cat: 'cartorio_balcao', q: "O que acontece se no meio da audiência eu descobrir que esqueci os papéis em casa?", a: "Como os processos são 100% eletrônicos no PJe, todas as provas devem ser anexadas antes da sessão. Você pode requerer prazo excepcional ao juiz, que avaliará a preclusão da prova." },
+      { id: 615, cat: 'cartorio_balcao', q: "A empresa ofereceu um acordo de 100 reais, mas eu pedi 5 mil. O juiz vai ficar com raiva se eu disser não?", a: "Não! Ninguém é obrigado a aceitar propostas desfavoráveis. Se não houver consenso, a conciliação encerra-se e o processo segue normalmente para julgamento pelo juiz." },
+      { id: 616, cat: 'cartorio_balcao', q: "A advogada da empresa veio com termos complicados que não entendi. O que eu faço?", a: "Você tem o direito de pedir ao juiz ou conciliador que esclareça os termos em linguagem clara. O rito sumaríssimo proíbe o uso de jargões técnicos para prejudicar o leigo." },
+      { id: 617, cat: 'cartorio_balcao', q: "Minha testemunha é muito tímida e disse que não vai de jeito nenhum. Como o Juizado ajuda?", a: "Solicite à Secretaria do Juizado com no mínimo 5 dias de antecedência da audiência a intimação formal da testemunha. Sendo intimada, o comparecimento passa a ser obrigatório." },
+      { id: 618, cat: 'cartorio_balcao', q: "Eu posso gravar a audiência escondido com meu celular no bolso?", a: "O art. 367, §6º do CPC permite às partes gravar a audiência independentemente de autorização judicial. Contudo, a gravação destina-se unicamente aos autos, sendo vedada a exposição indevida na internet." },
+      { id: 619, cat: 'cartorio_balcao', q: "Eu esqueci a data da audiência e faltei. Posso ligar pedindo desculpas pra não pagar multa?", a: "Desculpas informais não evitam a penalidade. A ausência injustificada do autor acarreta extinção do feito e condenação em custas. Para relevação, deve-se juntar atestado médico comprovando impossibilidade no dia e hora." },
+      { id: 620, cat: 'cartorio_balcao', q: "Meu celular tem pouca memória, como vou participar da audiência por vídeo?", a: "As salas virtuais podem ser acessadas diretamente pelo navegador web sem necessidade de baixar aplicativos pesados. Se preferir, pode comparecer ao Fórum Cível para utilizar as salas do Balcão Virtual." },
+      { id: 621, cat: 'compras', q: "Comprei um perfume no Instagram, depositei no Pix e a página sumiu. O Instagram tem que me pagar?", a: "A jurisprudência majoritária responsabiliza provedores de redes sociais quando o anúncio fraudulento foi pago (veiculação patrocinada), pois a plataforma aufere receita direta com a publicidade do golpe." },
+      { id: 622, cat: 'bancos', q: "Caí no golpe do falso emprego, paguei uma 'taxa de exame' e me bloquearam. O banco devolve?", a: "Se a transação foi consentida espontaneamente fora de qualquer falha nos sistemas de segurança do banco, configura culpa de terceiro. O banco responde somente se houver falha no Mecanismo Especial de Devolução (MED) ou abertura fraudulenta de conta." },
+      { id: 623, cat: 'compras', q: "Minha conta de luz chegou com 3 mil reais. Eu só tenho uma geladeira e uma TV! O Juizado cancela a conta?", a: "Sim! Faturas desproporcionais ao histórico de consumo evidenciam vício no medidor ou erro de leitura da concessionária. Anexe a conta questionada junto com as últimas 3 contas anteriores para demonstrar o salto injustificado." },
+      { id: 624, cat: 'compras', q: "Comprei um tênis que pisca na internet, chegou e não pisca. Posso devolver mesmo tendo usado uma vez?", a: "Pode! O art. 49 do CDC concede o direito de arrependimento em até 7 dias corridos após o recebimento para compras online, além da garantia legal contra vício do produto." },
+      { id: 625, cat: 'bancos', q: "Um bandido clonou o zap da minha mãe e eu mandei dinheiro pra ele. De quem eu cobro no Juizado?", a: "Você pode acionar a operadora telefônica se comprovada falha no chip (SIM swap), além do titular da conta bancária recebedora do Pix que atuou na fraude ou como intermediário." },
+      { id: 626, cat: 'bancos', q: "Paguei um boleto que mandaram por e-mail dizendo que era da Net, mas era falso. E agora?", a: "Se o boleto continha dados específicos e sigilosos do seu contrato que vazaram da própria operadora ou do banco emissor, há responsabilidade objetiva por fortuito interno (Súmula 479 do STJ)." },
+      { id: 627, cat: 'compras', q: "Anunciei meu sofá na OLX e o cara mandou um comprovante falso de Pix e levou o sofá. OLX paga?", a: "Plataformas que funcionam apenas como classificados de anúncios e não custodiam o pagamento não respondem pela entrega prematura feita pelo vendedor antes da compensação efetiva em conta." },
+      { id: 628, cat: 'saude_danos', q: "Um site de fofoca inventou que eu tô traindo minha mulher e botou minha foto. Posso processar pra tirarem do ar?", a: "Sim! Violação à honra e imagem enseja pedido liminar imediato para remoção do conteúdo ilícito, sob pena de multa cominatória diária, cumulado com indenização expressiva por danos morais." },
+      { id: 629, cat: 'telefonia', q: "Meu plano de celular era 50 reais, do nada veio 120. A operadora disse que 'acabou a promoção'. Pode isso?", a: "Apenas se o prazo de validade da promoção tiver sido informado de maneira transparente no contrato. Reajuste unilateral surpresa é abusivo e enseja repetição do indébito em dobro (art. 42 do CDC)." },
+      { id: 630, cat: 'compras', q: "Pedi uma pizza, o motoboy disse que a máquina de cartão quebrou, passei em outra e cobrou duas vezes.", a: "Trata-se de fraude da maquininha. Junte o extrato do cartão comprovando o débito duplicado em horários aproximados. A plataforma de delivery e a credenciadora respondem solidariamente pela restituição." },
+      { id: 631, cat: 'pje_regras', q: "Se eu apaguei a mensagem do Whatsapp sem querer, o juiz acredita só na minha palavra?", a: "Dificilmente. A regra probatória exige elementos de verossimilhança. Sem os prints, você precisará de testemunhas idôneas, comprovantes bancários de transferência ou protocolos de reclamação formal." },
+      { id: 632, cat: 'pje_regras', q: "Posso usar um áudio que eu gravei do gerente da loja me xingando, mesmo sem ele saber que eu tava gravando?", a: "Sim! A gravação ambiental realizada por um dos interlocutores é plenamente lícita e admitida como meio de prova no ordenamento brasileiro (jurisprudência consolidada do STF e STJ)." },
+      { id: 633, cat: 'pje_regras', q: "Meu único comprovante de que paguei a dívida é uma testemunha que viu eu dando o dinheiro em espécie. Serve?", a: "Prova exclusivamente testemunhal é admitida, mas possui fragilidade considerável para dívidas de valor elevado. Sempre exija recibo assinado ou faça a liquidação via Pix/transferência rastreável." },
+      { id: 634, cat: 'bancos', q: "O banco juntou um contrato dizendo que assinei, mas eu sou analfabeto e lá tá uma assinatura perfeita.", a: "Indício flagrante de fraude! O Tema 1.061 do STJ pacificou que, uma vez impugnada a assinatura pela parte, incumbe à instituição financeira o ônus integral de comprovar a autenticidade da contratação." },
+      { id: 635, cat: 'compras', q: "Como eu provo pro juiz que perdi muito tempo tentando ligar pra loja e ninguém atendia?", a: "Apresente os números de protocolo fornecidos e capturas de tela do histórico de chamadas do celular demonstrando durações excessivas. Isso embasa a Teoria do Desvio Produtivo do Consumidor." },
+      { id: 636, cat: 'compras', q: "Posso levar os restos da comida estragada num potinho pro juiz ver na hora da audiência?", a: "Não. Fóruns não recebem materiais perecíveis. O meio correto é registrar fotografias nítidas do produto, inseto ou bolor, anexar o cupom fiscal e protocolar eletronicamente no processo." },
+      { id: 637, cat: 'pje_regras', q: "A tela do meu celular quebrou. Como mostro as fotos do acidente de carro pro juiz?", a: "Os autos no 4º JEC são 100% eletrônicos no PJe. Conecte o aparelho a um computador para transferir os arquivos de imagem em formato PDF ou dirija-se à Atermação para suporte técnico." },
+      { id: 638, cat: 'saude_danos', q: "O motorista do ônibus freou com tudo, caí e machuquei. Não peguei nome de ninguém, como eu provo?", a: "Apresente o boletim de atendimento médico hospitalar imediato, registre Boletim de Ocorrência com a linha e horário do coletivo e requeira em juízo a exibição das filmagens das câmeras internas do veículo." },
+      { id: 639, cat: 'profissionais_estetica', q: "O médico me receitou remédio errado, mas rasgou a receita quando fui reclamar. O que eu faço?", a: "Guarde o cupom fiscal da farmácia com a discriminação do remédio dispensado. Se a apuração demandar perícia médica complexa, a ação deverá ser redirecionada à Vara Cível comum." },
+      { id: 640, cat: 'pje_regras', q: "Minha testemunha é minha vizinha que é muito minha amiga. O juiz vai deixar ela falar?", a: "Ela poderá prestar declarações, mas será ouvida na qualidade de informante (art. 447, §4º do CPC), sem prestar compromisso legal, tendo seu depoimento valor valorativo reduzido se demonstrada amizade íntima." },
+      { id: 641, cat: 'pje_regras', q: "Sou pensionista e não ganho nem um salário mínimo. Eu juro que é de graça mesmo pra eu processar?", a: "Sim! O acesso ao Juizado Especial Cível em primeiro grau de jurisdição é 100% gratuito (art. 54 da Lei 9.099/95). Não há taxa de distribuição ou custas para comparecimento a audiências." },
+      { id: 642, cat: 'bancos', q: "Ganhei 2 mil do banco no Juizado. Eu tenho que pagar imposto de renda sobre esse dinheiro que o juiz me deu?", a: "Valores recebidos a título de indenização por danos morais e materiais são isentos de retenção de Imposto de Renda, visto que possuem natureza estritamente indenizatória e reparatória." },
+      { id: 643, cat: 'pje_regras', q: "Eu ganhei, mas me falaram que a empresa pediu 'Recurso Inominado'. O que é esse bicho e por que travou meu dinheiro?", a: "O Recurso Inominado é a apelação do Juizado. A empresa recorreu para reanálise por uma Turma Recursal de juízes. O pagamento fica sobrestado até a publicação do acórdão definitivo." },
+      { id: 644, cat: 'pje_regras', q: "Se eu não tenho dinheiro pra pagar advogado na fase do tal do Recurso, eu perco a causa?", a: "Não. Na fase recursal a assistência jurídica é obrigatória por lei. Caso não disponha de recursos financeiros, você pode acionar a Defensoria Pública do Estado para apresentar suas contrarrazões gratuitamente." },
+      { id: 645, cat: 'execucoes_penhoras', q: "A empresa perdeu, mas diz que não tem dinheiro nas contas pra me pagar. Eu fico no prejuízo?", a: "Não de imediato. Podem ser realizadas ordens de constrição eletrônica via RENAJUD (veículos), penhora sobre recebíveis de máquinas de cartão e desconsideração da personalidade jurídica contra os sócios." },
+      { id: 646, cat: 'execucoes_penhoras', q: "O devedor postou foto na lancha no final de semana, mas pro juiz ele diz que tá desempregado. Posso mostrar as fotos?", a: "Sim! Prints de redes sociais evidenciando padrão de vida incompatível com a alegada hipossuficiência podem ser juntados para justificar quebras de sigilo fiscal e penhoras diferenciadas." },
+      { id: 647, cat: 'pje_regras', q: "Quero cobrar a pensão do meu ex-marido que tá 3 meses atrasada. A fila do Juizado de Pequenas Causas é rápida pra isso?", a: "O Juizado Especial Cível é expressamente proibido de processar e julgar causas de natureza alimentar e de Direito de Família. Cobranças de pensão alimentícia tramitam exclusivamente nas Varas de Família." },
+      { id: 648, cat: 'execucoes_penhoras', q: "O oficial de justiça foi na casa do cara que me deve e ele falou que a TV não era dele. A Justiça acredita?", a: "Há presunção de propriedade sobre os bens móveis que guarnecem a residência do devedor. Para afastar a constrição, terceiros devem apresentar nota fiscal comprobatória ou embargos de terceiro." },
+      { id: 649, cat: 'execucoes_penhoras', q: "O Juiz bloqueou 500 reais da conta do devedor, mas ele foi lá e disse pro Juiz que era o dinheiro do auxílio doença. E agora?", a: "Verbas de natureza previdenciária e salarial gozam de impenhorabilidade (art. 833 do CPC). Comprovada a origem estrita de benefício, o montante deve ser liberado, buscando-se outros ativos." },
+      { id: 650, cat: 'pje_regras', q: "Minha causa dá 50 mil reais. Me disseram pra eu 'abrir mão' de 10 mil só pra poder ficar no Juizado. Vale a pena?", a: "Trata-se da 'renúncia de alçada'. Muitos credores abrem mão do excedente a 40 salários mínimos para usufruir da celeridade, gratuidade e simplicidade do procedimento sumaríssimo dos JECs." },
+      { id: 651, cat: 'saude_danos', q: "A escola do meu filho não quer me dar o histórico escolar porque a mensalidade tá atrasada. O Juizado obriga eles a dar?", a: "Obriga de imediato! O art. 6º da Lei nº 9.870/99 veda terminantemente a retenção de documentos pedagógicos ou aplicação de sanções pedagógicas por inadimplemento. A cobrança deve ser feita pelas vias ordinárias." },
+      { id: 652, cat: 'saude_danos', q: "A oficina cobrou 3 mil pra arrumar meu motor, mas o carro saiu de lá e ferveu na esquina. Posso processar o mecânico?", a: "Sim. Prestação inadequada de serviços mecânicos impõe a reexecução gratuita do serviço ou a restituição imediata do montante pago, acrescido de perdas e danos materiais (reboque e aluguel de veículo)." },
+      { id: 653, cat: 'saude_danos', q: "Bateram na traseira do meu carro. O cara sumiu, mas anotei a placa. O Juizado acha o dono pela placa?", a: "Sim. Na atermação inicial, informada a placa, o Juízo pode efetuar consulta ao sistema integrado do Detran para identificação do proprietário e expedição de mandado de citação." },
+      { id: 654, cat: 'vizinhanca', q: "Comprei um terreno de boca, só no recibo de papelaria, mas o dono quer de volta. O JEC resolve terreno sem escritura?", a: "Se a demanda envolver demarcação complexa ou discussão petitória que exija dilação probatória pericial em cartório de registro de imóveis, o Juizado declarará incompetência para julgamento nas Varas Cíveis." },
+      { id: 655, cat: 'vizinhanca', q: "Aluguei minha casa sem contrato de papel, só combinado no Zap. O inquilino não sai, como eu faço?", a: "O Juizado Especial Cível admite a Ação de Despejo exclusivamente para uso próprio do locador. Diálogos de WhatsApp e recibos de Pix são plenamente admitidos para comprovar o pacto locativo." },
+      { id: 656, cat: 'vizinhanca', q: "O pedreiro botou piso torto na minha casa inteira. Quero o dinheiro de volta, mas comprei o material. Ele paga o material também?", a: "Sim. Comprovada a imperícia e a perda do material aplicado, o prestador de serviços deve restituir o valor da mão de obra e ressarcir o custo dos insumos destruídos (danos materiais emergentes)." },
+      { id: 657, cat: 'saude_danos', q: "Deixei o cachorro no pet shop pra tomar banho e me devolveram ele mancando. Eles dizem que ele já tava assim. E agora?", a: "O estabelecimento assume o dever de custódia e guarda do animal. Opera-se a responsabilidade objetiva do prestador de serviço de comprovar, por filmagens ou exames de entrada, que o trauma não ocorreu sob seus cuidados." },
+      { id: 658, cat: 'compras', q: "Comprei carne no açougue, cheguei em casa e tava com cheiro de podre. Fui trocar e riram de mim.", a: "A comercialização de produto impróprio para consumo viola os arts. 18 e 39 do CDC. O consumidor tem direito à substituição imediata ou restituição do valor, cabendo danos morais se houver exposição vexatória." },
+      { id: 659, cat: 'saude_danos', q: "Fui no motel, o teto do quarto tava vazando água e caiu gesso no meu carro. Fiquei morrendo de vergonha. Dá pra processar sem vazar meu nome?", a: "Sim. É possível requerer ao magistrado a tramitação do processo em Segredo de Justiça (art. 189 do CPC) para resguardar a intimidade e a privacidade das partes envolvidas." },
+      { id: 660, cat: 'saude_danos', q: "O dono do estacionamento botou placa que 'não se responsabiliza'. Furtaram meu rádio lá. Ele se safa com essa placa?", a: "Aviso de não responsabilidade é nulo de pleno direito. A Súmula 130 do STJ estipula expressamente que o estabelecimento responde pela reparação de dano ou furto de veículo ocorrido em seu estacionamento." },
+      { id: 661, cat: 'saude_danos', q: "Meu plano de saúde disse que minha cirurgia da vesícula tá no 'período de carência', mas eu tô urrando de dor.", a: "Em situações de comprovada urgência ou emergência médica, a carência contratual reduz-se a 24 horas por determinação da Lei dos Planos de Saúde. É cabível pedido de tutela liminar de urgência imediata." },
+      { id: 662, cat: 'profissionais_estetica', q: "A maquiadora passou um produto no meu rosto e minha pele encheu de bolha na véspera do meu casamento.", a: "Falha na prestação de serviço estético. Cabe reparação por danos materiais (reembolso do serviço e tratamentos dermatológicos) cumulada com indenização por dano moral em decorrência do abalo ao evento." },
+      { id: 663, cat: 'profissionais_estetica', q: "O dentista fez canal no dente errado. Minha boca tá doendo e perdi o dente bom!", a: "Se a extração indevida for incontroversa por laudos clínicos simples, cabe indenização no JEC. Contudo, se houver necessidade de perícia odontolegal complexa, o feito será extinto para a Justiça Comum." },
+      { id: 664, cat: 'saude_danos', q: "Fui no posto de saúde público, a enfermeira gritou comigo na frente de todo mundo e mandou eu calar a boca.", a: "Ofensas praticadas por servidores públicos municipais ou estaduais devem ser processadas perante o Juizado Especial da Fazenda Pública, com base na responsabilidade civil do Estado (art. 37, §6º da CF)." },
+      { id: 665, cat: 'saude_danos', q: "O plano de saúde cancelou meu contrato do nada, e eu só descobri quando cheguei na porta da clínica.", a: "A rescisão unilateral por inadimplência só é lícita após 60 dias de atraso e com notificação prévia formal até o 50º dia. O cancelamento sem aviso viola a legislação e autoriza o restabelecimento imediato por liminar." },
+      { id: 666, cat: 'profissionais_estetica', q: "Posso pedir indenização porque fiquei duas horas esperando o médico particular me atender mesmo com horário marcado?", a: "Atrasos moderados em consultas particulares costumam ser considerados dissabores inerentes ao exercício médico, salvo se configurado descaso extremo, recusa injustificada de atendimento ou prejuízo financeiro demonstrado." },
+      { id: 667, cat: 'profissionais_estetica', q: "Tatuaram a letra do nome do meu filho errada no meu braço. O tatuador diz que não devolve o dinheiro.", a: "A tatuagem configura obrigação de resultado. O erro na execução impõe a devolução integral dos valores, o custeio de procedimentos de remoção a laser e indenização por dano moral e estético." },
+      { id: 668, cat: 'profissionais_estetica', q: "A academia falou que não vai me devolver o dinheiro do plano anual, mesmo eu tendo quebrado a perna no acidente.", a: "A imposição de multa rescisória integral diante de incapacidade física atestada por laudo médico configura enriquecimento sem causa. A academia deve restituir proporcionalmente as parcelas vincendas." },
+      { id: 669, cat: 'compras', q: "Comprei uma cinta milagrosa no Facebook que prometia emagrecer 5kg em 3 dias. Usei, fiquei sem respirar e não perdi 1 grama.", a: "Configura propaganda enganosa (art. 37 do CDC). O consumidor tem direito à rescisão contratual com devolução integral do valor despendido, sem prejuízo de representação perante o Procon." },
+      { id: 670, cat: 'saude_danos', q: "O segurança da boate me pegou pelo braço, me jogou na rua e rasgou minha camisa sem motivo.", a: "O estabelecimento responde objetivamente pelos atos de excesso de seus prepostos. Junte fotos dos hematomas, laudo pericial de corpo de delito e relatos testemunhais para pleitear danos morais e materiais." },
+      { id: 671, cat: 'saude_danos', q: "Tive um pesadelo horrível depois de assistir um filme de terror no cinema que não tinha classificação certa. Posso pedir dano moral?", a: "Mero desconforto emocional por enredo cinematográfico não configura dano moral indenizável, salvo se comprovada veiculação ilegal sem classificação indicativa para menores em sessão irregular." },
+      { id: 672, cat: 'fraudes_encerramento', q: "Uma cartomante prometeu trazer meu amor de volta em três dias, paguei mil reais e o cara ainda casou com outra. Cabe processo?", a: "Serviços espirituais e promessas de cunho sobrenatural não encontram amparo de obrigação de resultado no CDC, sendo comumente extintos por impossibilidade jurídica ou ausência de nexo causal verificável." },
+      { id: 673, cat: 'bancos', q: "Emprestei meu nome pro meu cunhado tirar um carro, ele não pagou e meu nome sujou. O Juizado manda ele limpar?", a: "Perante a instituição financeira, o titular do contrato é o devedor formal. O Juizado não obrigará o banco a desnegativar o débito legítimo, cabendo apenas ação de regresso contra o terceiro para cobrar os valores devidos." },
+      { id: 674, cat: 'compras', q: "Comprei um curso que dizia como ficar rico na bolsa de valores, mas eu só perdi dinheiro. É propaganda enganosa?", a: "Se houve promessa expressa de 'lucro garantido e risco zero' em investimentos variáveis, configura publicidade abusiva e engano ao consumidor, gerando o dever de restituir o preço do curso." },
+      { id: 675, cat: 'vizinhanca', q: "No grupo do condomínio, a síndica me chamou de 'caloteira' porque atrasei a taxa 2 dias. Posso cobrar o vexame dela?", a: "Sim. A exposição pública e vexatória de condômino inadimplente em aplicativos de mensagens atenta contra a honra objetiva, ensejando dever de indenizar pelo condomínio e pelo emitente da mensagem." },
+      { id: 676, cat: 'vizinhanca', q: "Namorei dois anos, paguei os lanches todos e agora ela me largou. O Juizado obriga ela a devolver o que eu gastei?", a: "Não. Gastos voluntários e cortesias durante o relacionamento afetivo caracterizam atos de mera liberalidade sem expectativa de contraprestação financeira, insuscetíveis de cobrança jurídica." },
+      { id: 677, cat: 'profissionais_estetica', q: "O barbeiro raspou minha sobrancelha sem querer. Sou modelo de loja, perdi meus trabalhos. Ele tem que me indenizar o que perdi?", a: "Sim. Caracteriza lucros cessantes e dano estético reflexo. Comprovados os contratos de trabalho suspensos e o nexo de causalidade, o salão deve arcar com os rendimentos frustrados." },
+      { id: 678, cat: 'vizinhanca', q: "O padre não quis me casar na igreja porque cheguei meia hora atrasada. A festa toda esperando. Dá pra processar a Igreja?", a: "Entidades religiosas possuem autonomia de regulamento interno. Se o atraso substancial desrespeitou os horários e agendas do templo, a responsabilidade não é imputável à paróquia." },
+      { id: 679, cat: 'vizinhanca', q: "Fui padrinho de casamento, aluguei terno caro, e na hora os noivos brigaram e cancelaram tudo. Eles pagam meu terno?", a: "O rompimento injustificado de noivado às portas da cerimônia enseja a recomposição das despesas materiais extraordinárias comprovadamente efetuadas pelos membros do cortejo (danos emergentes)." },
+      { id: 680, cat: 'compras', q: "Uma mulher me vendeu um cachorro dizendo que era Poodle puro. Cresceu e parece um vira-lata. Eu gosto dele, mas paguei caro!", a: "Configura vício redibitório e quebra de oferta contratada. O adquirente pode ingressar com ação de abatimento proporcional do preço (ação estimatória) para reaver a diferença monetária paga a mais." },
+      { id: 681, cat: 'pje_regras', q: "Recebi uma carta do Fórum com meu nome, mas tem o nome de uma empresa de telefone que eu nem conheço dizendo que eu processei eles. O que é isso?", a: "Pode tratar-se de caso grave de litigância predatória ou apropriação indevida de dados. Compareça imediatamente ao Cartório do Juizado para comunicar que desconhece a ação e resguardar-se de fraudes." },
+      { id: 682, cat: 'pje_regras', q: "O carteiro entregou a intimação pra minha vizinha fofoqueira e ela abriu. Eu nem fiquei sabendo do prazo! E agora?", a: "A citação postal deve ser entregue no endereço correto e assinada por pessoa com poderes legais. Se comprovada nulidade da citação ou desvio do ato, o juiz restabelece os prazos processuais." },
+      { id: 683, cat: 'pje_regras', q: "O juiz botou no meu processo 'extinto sem julgamento do mérito'. Que língua é essa? Eu perdi ou não?", a: "Não significa julgamento de improcedência. O processo foi encerrado por ausência de um pressuposto formal (ex: falta de citação, endereço incorreto ou ausência na audiência). Sanado o defeito, a ação pode ser reproposta." },
+      { id: 684, cat: 'pje_regras', q: "Sou analfabeto e quero processar o banco, mas a mulher do fórum disse que preciso de 'atermação'. O que significa isso?", a: "Atermação é o ato pelo qual o servidor do Judiciário reduz a termo oficial sua narrativa verbal, elaborando a petição inicial de forma simplificada e gratuita, viabilizando o acesso à justiça sem advogado." },
+      { id: 685, cat: 'pje_regras', q: "Eles mandaram eu levar a inicial em 'PDF'. Como eu transformo a foto do meu celular nesse negócio de PDF?", a: "O PDF é o formato padrão do PJe. Utilize aplicativos gratuitos de digitalização no celular para converter as fotos dos seus documentos em PDF antes de fazer o envio." },
+      { id: 686, cat: 'pje_regras', q: "Meu processo tá com status de 'Concluso'. Significa que acabou e o dinheiro vai sair hoje?", a: "O status 'Concluso' indica unicamente que os autos eletrônicos foram remetidos ao gabinete do magistrado para análise e prolação de decisão ou sentença. Deve-se aguardar a publicação formal." },
+      { id: 687, cat: 'pje_regras', q: "O advogado me cobrou '30% no final', mas a Justiça gratuita não cobre advogado de graça pra mim?", a: "A gratuidade da justiça prevista na Lei 9.099/95 isenta custas do Tribunal. Honorários contratuais ajustados entre a parte e seu patrono particular decorrem de pacto privado. Assistência 100% gratuita é prestada pela Defensoria Pública ou Atermação." },
+      { id: 688, cat: 'pje_regras', q: "Minha filha tem 17 anos e foi ela quem comprou o celular com defeito no nome dela. Eu posso ir no Fórum e falar por ela?", a: "O art. 8º da Lei nº 9.099/95 estabelece que o incapaz não pode ser parte no Juizado Especial Cível, exigindo-se que demandas exclusivas de menores tramitem perante as Varas Cíveis comuns." },
+      { id: 689, cat: 'cartorio_balcao', q: "Se o juiz marcar audiência no dia do meu trabalho, eu ganho atestado pra não levar falta do patrão?", a: "Sim. A Secretaria do Juizado emite certidão formal de comparecimento para abonar o período despendido na audiência judicial perante o empregador." },
+      { id: 690, cat: 'pje_regras', q: "Descobri o endereço do cara que me deve. É só eu entregar pro carteiro mandar a carta ou eu mesmo posso bater na casa dele pra avisar do processo?", a: "Não realize diligências pessoais. A citação é ato privativo do Poder Judiciário realizado via Correios com aviso de recebimento ou por Oficial de Justiça. Junte o novo endereço por petição nos autos." },
+      { id: 691, cat: 'compras', q: "Abri o pacote de pão de forma que comprei no mercadinho e tinha um bicho morto dentro. O dono mandou eu trocar, só isso basta?", a: "A presença de corpo estranho em alimento industrializado atenta contra a incolumidade física do consumidor e configura dano moral in re ipsa, mesmo que não haja ingestão completa, cabendo indenização e denúncia à vigilância sanitária." },
+      { id: 692, cat: 'compras', q: "Comprei uma TV na loja. Quando cheguei em casa, não gostei do tamanho pra minha sala. Fui devolver na mesma hora, eles são obrigados a aceitar?", a: "Não. O direito de arrependimento (art. 49 do CDC) é exclusivo para aquisições realizadas fora do estabelecimento físico. Em lojas físicas, a troca por conveniência estética segue as políticas de cortesia do fornecedor." },
+      { id: 693, cat: 'compras', q: "A vendedora disse que o sapato cedia. Usei um dia e machucou meu calcanhar todo. Voltei lá e disseram que não troca sapato usado. O que eu digo?", a: "Houve indução em erro por informação inadequada do fornecedor. Diante da promessa inverídica, é cabível requerer o desfazimento do negócio ou a troca do item nos termos do dever de transparência do CDC." },
+      { id: 694, cat: 'compras', q: "Comprei um guarda-roupa, disseram que montavam em 3 dias. Já faz 2 meses e minhas roupas tão todas no chão.", a: "O atraso abusivo na montagem de móvel essencial configura descumprimento de obrigação acessória vinculada, autorizando o cancelamento com restituição imediata e reparação por danos morais." },
+      { id: 695, cat: 'compras', q: "O segurança do shopping mandou abrir minha bolsa na saída de uma loja, achei o maior absurdo, todo mundo olhando.", a: "Revista vexatória sem suspeita fundada e em local público gera abalo à dignidade do consumidor e enseja condenação do estabelecimento por danos morais significativos." },
+      { id: 696, cat: 'compras', q: "Vi uma blusa na vitrine por 20 reais. Quando fui pagar, a moça do caixa disse que era 50 e o cartaz tava errado.", a: "Pelo princípio da vinculação da oferta (art. 30 e 35 do CDC), o fornecedor é obrigado a cumprir o preço anunciado em vitrine, exceto se evidente erro grosseiro que destoe manifestamente da realidade." },
+      { id: 697, cat: 'compras', q: "Paguei com uma nota de 100, a moça não tinha troco e queria me dar 5 reais de balinha. Sou obrigado a aceitar?", a: "Nenhum consumidor é obrigado a aceitar mercadorias em substituição ao troco monetário em moeda corrente. Na falta de troco, o estabelecimento deve arredondar o valor em benefício do consumidor." },
+      { id: 698, cat: 'bancos', q: "A loja botou meu nome no SPC, fui reclamar, era o CPF igual mas a pessoa era de outro Estado! O juiz cobra caro deles?", a: "A inclusão indevida decorrente de homonímia ou fraude cadastral configura ilícito com dano moral in re ipsa. O Judiciário expede ordem de baixa imediata e impõe indenização compensatória à empresa." },
+      { id: 699, cat: 'compras', q: "Comprei um brinquedo pro meu neto no dia das crianças, veio quebrado, a loja enrolou 30 dias. A criança não teve presente. Tem dano moral por quebrar a alegria da criança?", a: "A frustração grave da finalidade temporal de presente em data especial comemorativa decorrente da negligência do fornecedor ultrapassa o mero aborrecimento e enseja dano moral compensatório." },
+      { id: 700, cat: 'compras', q: "Fui numa lanchonete, achei o lanche ruim e não quis pagar os '10% do garçom'. O gerente disse que eu não saía de lá até pagar.", a: "A taxa de serviço (gorjeta) é facultativa. Impedir a saída do consumidor constitui constrangimento ilegal e retenção indevida, gerando responsabilização criminal e expressiva reparação cível por danos morais." }
+    ];
+
+    let autoVoiceEnabled = false;
+    let recognition = null;
+    let isListening = false;
+    let activeFaqFilter = 'todas';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initThemeMode();
+      renderFaqItems();
+      setupSpeechRecognition();
+      setupQrCodeRenderer();
+
+      // Disparo do Alerta em Alto-Relevo (3D Depth Pulse - exatos 5 ciclos)
+      const welcomeCard = document.getElementById('welcomeMessageCard');
+      const balcaoBtn = document.getElementById('quickActionBalcao');
+
+      if (welcomeCard) triggerAttentionPulse(welcomeCard);
+      if (balcaoBtn) triggerAttentionPulse(balcaoBtn);
+    });
+
+    function triggerAttentionPulse(element) {
+      if (!element) return;
+      element.classList.remove('dashboard-attention-pulse');
+      void element.offsetWidth; // Força reflow
+      element.classList.add('dashboard-attention-pulse');
+
+      const handleAnimationEnd = () => {
+        element.classList.remove('dashboard-attention-pulse');
+        element.removeEventListener('animationend', handleAnimationEnd);
+      };
+      element.addEventListener('animationend', handleAnimationEnd);
+    }
+
+    function initThemeMode() {
+      const isDark = document.documentElement.classList.contains('dark');
+      updateThemeUI(isDark);
+      try {
+        if (window.matchMedia) {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!safeStore.get('ofetino_theme')) {
+              setThemeMode(e.matches ? 'dark' : 'light', false);
+            }
+          });
+        }
+      } catch (e) {}
+    }
+
+    function toggleThemeMode() {
+      const isCurrentlyDark = document.documentElement.classList.contains('dark');
+      const targetTheme = isCurrentlyDark ? 'light' : 'dark';
+      setThemeMode(targetTheme, true);
+    }
+
+    function setThemeMode(theme, persist = true) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      if (persist) {
+        safeStore.set('ofetino_theme', theme);
+      }
+      updateThemeUI(theme === 'dark');
+    }
+
+    function updateThemeUI(isDark) {
+      const btn = document.getElementById('themeToggleBtn');
+      const label = document.getElementById('themeLabelText');
+      if (label) {
+        label.innerText = isDark ? 'Escuro' : 'Claro';
+      }
+      if (btn) {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.title = isDark ? 'Mudar para Modo Claro (☀️)' : 'Mudar para Modo Escuro (🌙)';
+      }
+    }
+
+    function openAccessibilityModal() {
+      document.getElementById('accessModal').classList.remove('hidden');
+    }
+    function closeAccessibilityModal() {
+      document.getElementById('accessModal').classList.add('hidden');
+    }
+    function changeFontSize(delta) {
+      let current = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--app-font-scale')) || 1;
+      current = Math.min(Math.max(current + delta, 0.85), 1.35);
+      document.documentElement.style.setProperty('--app-font-scale', current);
+    }
+    function resetFontSize() {
+      document.documentElement.style.setProperty('--app-font-scale', 1);
+    }
+    function toggleHighContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+    function toggleDyslexicFont() {
+      document.body.classList.toggle('font-dyslexic');
+    }
+
+    function openUnitContactModal() {
+      document.getElementById('unitModal').classList.remove('hidden');
+    }
+    function closeUnitContactModal() {
+      document.getElementById('unitModal').classList.add('hidden');
+    }
+
+    function openFaqModal() {
+      document.getElementById('faqModal').classList.remove('hidden');
+      const search = document.getElementById('faqSearchInput');
+      if (search) search.focus();
+    }
+    function closeFaqModal() {
+      document.getElementById('faqModal').classList.add('hidden');
+    }
+
+    function openQrModal() {
+      document.getElementById('qrModal').classList.remove('hidden');
+      renderPortalQrCode();
+    }
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    function setupQrCodeRenderer() {
+      const container = document.getElementById('qrcodeCanvasContainer');
+      if (!container) return;
+      renderPortalQrCode();
+    }
+
+    function renderPortalQrCode() {
+      const container = document.getElementById('qrcodeCanvasContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const targetUrl = UNIT_DATA.portalUrl;
+      let rendered = false;
+
+      if (typeof QRCode !== 'undefined') {
+        try {
+          new QRCode(container, {
+            text: targetUrl,
+            width: 200,
+            height: 200,
+            colorDark: "#0c4a6e",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+          rendered = true;
+        } catch (e) {
+          rendered = false;
+        }
+      }
+
+      if (!rendered) {
+        const img = document.createElement('img');
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=2&color=0c4a6e&data=${encodeURIComponent(targetUrl)}`;
+        img.alt = "QR Code de acesso ao Ofetino";
+        img.className = "w-[200px] h-[200px] rounded-lg shadow-inner";
+        img.onerror = function() {
+          container.innerHTML = `
+            <div class="p-4 bg-sky-50 text-jusblue-950 text-center rounded-xl border border-sky-200">
+              <i class="fa-solid fa-qrcode text-4xl mb-2 text-jusblue-700"></i>
+              <p class="font-bold text-xs">Acesse o portal diretamente pelo link:</p>
+              <a href="${targetUrl}" target="_blank" class="text-xs text-sky-700 underline font-mono break-all">${targetUrl}</a>
+            </div>
+          `;
+        };
+        container.appendChild(img);
+      }
+    }
+
+    function copyPortalUrl() {
+      const url = UNIT_DATA.portalUrl;
+      const toast = document.getElementById('copyToast');
+
+      const fallbackCopy = (text) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {}
+        document.body.removeChild(textarea);
+      };
+
+      const showToast = () => {
+        if (!toast) return;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2500);
+      };
+
+      fallbackCopy(url);
+    }
+
+    function setFaqFilter(cat, btnElement) {
+      activeFaqFilter = cat;
+      document.querySelectorAll('.faq-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-jusblue-700', 'text-white', 'font-semibold');
+        btn.classList.add('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-200', 'font-medium');
+      });
+      if (btnElement) {
+        btnElement.classList.remove('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-200');
+        btnElement.classList.add('bg-jusblue-700', 'text-white', 'font-semibold');
+      }
+      filterFaqItems();
+    }
+
+    function filterFaqItems() {
+      const input = document.getElementById('faqSearchInput');
+      const term = input ? input.value.toLowerCase().trim() : '';
+      renderFaqItems(term);
+    }
+
+    function renderFaqItems(term = '') {
+      const list = document.getElementById('faqListContainer');
+      if (!list) return;
+      list.innerHTML = '';
+
+      const filtered = FAQ_DATA.filter(item => {
+        const matchesCategory = activeFaqFilter === 'todas' || item.cat === activeFaqFilter;
+        const matchesSearch = !term || item.q.toLowerCase().includes(term) || item.a.toLowerCase().includes(term);
+        return matchesCategory && matchesSearch;
+      });
+
+      const countLabel = document.getElementById('faqCountLabel');
+      if (countLabel) {
+        countLabel.innerText = term || activeFaqFilter !== 'todas' 
+          ? `Exibindo Dúvidas & Precedentes filtradas` 
+          : `Exibindo Dúvidas & Precedentes`;
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="text-center p-6 text-slate-400 text-xs">
+            <i class="fa-solid fa-magnifying-glass text-2xl mb-2 text-slate-300 dark:text-slate-600"></i>
+            <p>Nenhuma dúvida ou precedente encontrado para o termo pesquisado.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs hover:border-sky-300 dark:hover:border-sky-500 transition text-xs space-y-1.5";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="font-bold text-slate-900 dark:text-slate-100 leading-snug">#${item.id}. ${item.q}</span>
+            <button onclick="triggerFaqFromModal(${item.id})" class="text-[11px] text-jusblue-700 dark:text-sky-400 hover:text-jusblue-900 dark:hover:text-sky-300 bg-sky-50 dark:bg-sky-950/60 px-2 py-1 rounded-lg font-semibold flex-shrink-0 transition">
+              Perguntar ao Chat
+            </button>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px] bg-slate-50 dark:bg-slate-850 p-2 rounded-lg border border-slate-100 dark:border-slate-800">${item.a}</p>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function triggerFaqFromModal(id) {
+      const item = FAQ_DATA.find(x => x.id === id);
+      if (!item) return;
+      closeFaqModal();
+      appendUserMessage(item.q);
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        appendAssistantMessage(item.a, item.q);
+      }, 300);
+    }
+
+    function handleQuickAction(actionKey) {
+      const unit = UNIT_DATA;
+
+      switch (actionKey) {
+        case 'balcao_virtual':
+          appendUserMessage('Como acesso o Balcão Virtual?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>📱 Balcão Virtual - ${unit.shortName}</strong><br><br>
+              Você pode ser atendido ao vivo por videoconferência com a nossa equipe no link oficial:<br><br>
+              <a href="${unit.balcaoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-jusblue-700 hover:bg-jusblue-800 text-white font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow my-1 transition">
+                <i class="fa-solid fa-headset text-sm"></i> Acessar Sala do Balcão Virtual do TJPB
+              </a><br><br>
+              • <strong>WhatsApp:</strong> <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a><br>
+              • <strong>Horário:</strong> Segunda a Sexta, das <strong>07h00 às 17h00</strong>.
+            `, 'balcao_virtual');
+          }, 250);
+          break;
+
+        case 'atermacao':
+          appendUserMessage('Como entrar com uma ação sem advogado?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>⚖️ Como Dar Entrada em uma Ação (Peça Você Mesmo - TJPB)</strong><br><br>
+              Para causas de até <strong>20 salários mínimos</strong> relativas a João Pessoa ou Cabedelo, você pode formular seu pedido diretamente online:<br><br>
+              <a href="${unit.atermacaoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow my-1 transition">
+                <i class="fa-solid fa-file-pen text-sm"></i> Dar Entrada na Ação (Peça Você Mesmo)
+              </a><br><br>
+              <strong>Documentos necessários:</strong><br>
+              • Documento oficial com foto (RG ou CNH) e CPF;<br>
+              • Comprovante de residência atualizado em João Pessoa ou Cabedelo;<br>
+              • Dados completos do réu (nome/CNPJ e endereço);<br>
+              • Provas do fato (prints, fotos, notas fiscais, contratos).<br><br>
+              <em>O processo em 1º grau é 100% gratuito (art. 54 da Lei 9.099/95).</em>
+            `, 'atermacao');
+          }, 250);
+          break;
+
+        case 'audiencias':
+          appendUserMessage('Preciso de informações sobre audiência online.');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>💻 Audiências Virtuais - Falar com o Cartório</strong><br><br>
+              Para links de salas virtuais, confirmação de horário ou justificativas nas pautas de João Pessoa ou Cabedelo, fale com nosso servidor pelo WhatsApp:<br><br>
+              <a href="https://wa.me/${unit.whatsappClean}?text=Ol%C3%A1%2C+preciso+de+informa%C3%A7%C3%B5es+sobre+minha+audi%C3%AAncia+online" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow my-1 transition">
+                <i class="fa-brands fa-whatsapp text-sm"></i> Falar com Servidor do Cartório via WhatsApp
+              </a><br><br>
+              • <strong>Número Oficial:</strong> ${unit.whatsapp}<br>
+              • <strong>Vestimenta obrigatória:</strong> É proibido trajar shorts, bermudas ou camisetas regatas.<br>
+              • <strong>Atendimento:</strong> 07h00 às 17h00 (dias úteis).
+            `, 'audiencias');
+          }, 250);
+          break;
+
+        case 'custas':
+          appendUserMessage('Como funciona o pagamento de custas judiciais?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>💰 Custas Judiciais nos Juizados Especiais</strong><br><br>
+              • <strong>1º Grau Gratuito:</strong> Não há cobrança de taxas ou custas até a sentença (art. 54 da Lei 9.099/95).<br>
+              • <strong>Custas em Recursos:</strong> Se você for recorrer para a Turma Recursal, as guias oficiais devem ser emitidas no portal do TJPB:<br><br>
+              <a href="${unit.custasUrl}" target="_blank" class="inline-flex items-center gap-2 bg-jusblue-700 hover:bg-jusblue-800 text-white font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow my-1 transition">
+                <i class="fa-solid fa-receipt text-sm"></i> Acessar Portal Custas Online TJPB
+              </a>
+            `, 'custas');
+          }, 250);
+          break;
+
+        case 'contato_detalhado':
+          appendUserMessage('Qual o endereço e telefone do cartório?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>📍 Canais Oficiais de Contato - ${unit.name}</strong><br><br>
+              • <strong>Sede:</strong> ${unit.forum} (${unit.address});<br>
+              • <strong>WhatsApp:</strong> <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a>;<br>
+              • <strong>E-mail:</strong> <a href="mailto:${unit.email}" class="text-sky-700 dark:text-sky-400 font-bold underline">${unit.email}</a>;<br>
+              • <strong>Balcão Virtual:</strong> <a href="${unit.balcaoUrl}" target="_blank" class="text-jusblue-700 dark:text-sky-400 font-bold underline">Sala online ao vivo</a>;<br>
+              • <strong>Horário Forense:</strong> Segunda a Sexta, das 07h00 às 17h00.
+            `, 'contato');
+          }, 250);
+          break;
+
+        case 'consulta_processo':
+          appendUserMessage('Como consultar o andamento do meu processo no PJe?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>🔍 Consulta Pública no PJe do TJPB (1º Grau)</strong><br><br>
+              Você pode consultar processos em andamento através do link oficial:<br><br>
+              <a href="${unit.pjeUrl}" target="_blank" class="inline-flex items-center gap-2 bg-jusblue-700 hover:bg-jusblue-800 text-white font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow my-1 transition">
+                <i class="fa-solid fa-magnifying-glass text-sm"></i> Abrir Consulta Pública PJe TJPB
+              </a><br><br>
+              Basta informar o número do processo ou o nome completo da parte.
+            `, 'pje');
+          }, 250);
+          break;
+
+        case 'competencia_juizados':
+          appendUserMessage('Qual a competência dos Juizados Especiais Cíveis?');
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            appendAssistantMessage(`
+              <strong>⚖️ Competência e Limites (Lei nº 9.099/1995)</strong><br><br>
+              • <strong>Limite de Valor:</strong> Causas de até <strong>40 salários mínimos</strong> (até 20 SM é possível ajuizar sem advogado);<br>
+              • <strong>Matérias aceitas:</strong> Relações de consumo, acidentes de trânsito, cobranças simples, títulos executivos extrajudiciais, despejo para uso próprio e ações possessórias até 40 SM;<br>
+              • <strong>Não aceitamos:</strong> Causas trabalhistas, previdenciárias (INSS), divórcio, pensão alimentícia, herança/inventário, ações contra o Estado/Município (Fazenda Pública) e perícias complexas.
+            `, 'competencia');
+          }, 250);
+          break;
+      }
+    }
+
+    async function handleUserMessage(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('chatInput');
+      if (!input) return;
+      const query = input.value.trim();
+      if (!query) return;
+
+      input.value = '';
+      appendUserMessage(query);
+      showTyping();
+
+      try {
+        const aiResponse = await queryGeminiAssistant(query);
+        hideTyping();
+        appendAssistantMessage(aiResponse, query);
+      } catch (err) {
+        hideTyping();
+        const fallback = getLocalLegalFallback(query);
+        appendAssistantMessage(fallback, query);
+      }
+    }
+
+    async function queryGeminiAssistant(userQuery) {
+      const unit = UNIT_DATA;
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const systemPrompt = `
+# [SISTEMA CENTRAL OFETINO - V2.0 + MÓDULO ANALÍTICO E PRECEDENTES]
+Você é "Ofetino", o assistente virtual OFICIAL e exclusivo do 4º Juizado Especial Cível da Capital e Cabedelo (TJPB).
+Unidade: ${unit.name} (Fórum Cível Des. Mário Moacyr Porto - Av. João Machado, s/n - Centro, João Pessoa).
+WhatsApp Oficial: ${unit.whatsapp} | Horário: Segunda a Sexta, das 07h00 às 17h00.
+Balcão Virtual: ${unit.balcaoUrl}
+Atermação Online: ${unit.atermacaoUrl}
+Link do Site Oficial: ${unit.portalUrl}
+
+# [BASE DE CONHECIMENTO E PRECEDENTES QUALIFICADOS]
+Você possui a Base de Conhecimento oficial em "Dúvidas & Precedentes", com as rotinas completas do Juizado Especial Cível (Lei nº 9.099/95), Súmulas STJ (479, 385, 130), Temas Repetitivos (958, 1061, 1198), Teoria do Desvio Produtivo do Consumidor, Resoluções CNJ (159/2024, 547/2024), execuções, penhoras, leilões judiciais, responsabilidade de profissionais liberais e estética, bem como conflitos de vizinhança e do cotidiano (itens 1 a 700).
+
+# [RESTRIÇÕES DE ATUAÇÃO (HARD LIMITS)]
+- ZERO ACONSELHAMENTO JURÍDICO: Proibido opinar sobre procedência de causas ou orientar teses. Responda: "Como assistente virtual do cartório, sou proibido por lei de prestar consultoria jurídica ou opinar sobre casos específicos. Recomendo que você consulte um advogado ou a Defensoria Pública para orientações legais."
+- ZERO INVENÇÃO: Responda baseado unicamente na base. Em dúvidas não contempladas: "Desculpe, não encontrei essa informação específica nos meus registros oficiais. Para resolver isso rapidamente, por favor, fale com um servidor do nosso cartório pelo WhatsApp (83) 99144-1428 (das 07h às 17h) ou acesse nosso Balcão Virtual."
+- FORA DE CONTEXTO: "Sou um assistente focado exclusivamente no atendimento do 4º Juizado Especial Cível. Como posso ajudar com os serviços do cartório?"
+`;
+
+      const payload = {
+        contents: [{ role: "user", parts: [{ text: userQuery }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        generationConfig: { temperature: 0.25, maxOutputTokens: 550 }
+      };
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) throw new Error("API error");
+      const data = await response.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!text) throw new Error("Empty AI response");
+
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function getLocalLegalFallback(query) {
+      const q = query.toLowerCase().trim();
+      const unit = UNIT_DATA;
+
+      if (['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'opa'].includes(q)) {
+        return `Olá! Sou o <strong>Ofetino</strong>, assistente virtual do 4º Juizado Especial Cível de João Pessoa e Cabedelo. Como posso ajudar você hoje? Você pode me perguntar sobre andamento de processos, precedentes do STJ/CNJ, leilões, penhoras, como dar entrada numa ação, regras de audiência, ou pedir para falar com o cartório.`;
+      }
+
+      if (q.includes('qr code') || q.includes('qrcode') || q.includes('link do site') || q.includes('abrir no celular') || q.includes('link de acesso')) {
+        return `Você pode acessar o Ofetino diretamente pelo seu celular através do link oficial ou abrindo o QR Code:<br><br>
+        🌐 <a href="${unit.portalUrl}" target="_blank" class="font-bold text-jusblue-700 dark:text-sky-400 underline">${unit.portalUrl}</a><br><br>
+        <button onclick="openQrModal()" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-1.5 rounded-xl shadow-xs transition">
+          <i class="fa-solid fa-qrcode"></i> Exibir QR Code para Câmera do Celular
+        </button>`;
+      }
+
+      if (q.includes('eu ganho') || q.includes('vou ganhar') || q.includes('tenho chance') || q.includes('minha chance') || q.includes('quanto de dano moral') || q.includes('quanto pedir') || q.includes('o que falo pro juiz') || q.includes('o que falar pro juiz') || q.includes('tenho razao') || q.includes('tenho razão')) {
+        return `Como assistente virtual do cartório, sou proibido por lei de prestar consultoria jurídica ou opinar sobre casos específicos. Recomendo que você consulte um advogado ou a Defensoria Pública para orientações legais.`;
+      }
+
+      if (q.includes('futebol') || q.includes('piada') || q.includes('política') || q.includes('politica') || q.includes('presidente') || q.includes('receita de bolo')) {
+        return `Sou um assistente focado exclusivamente no atendimento do 4º Juizado Especial Cível. Como posso ajudar com os serviços do cartório?`;
+      }
+
+      // Precedentes analíticos
+      if (q.includes('súmula 479') || q.includes('sumula 479') || q.includes('fortuito interno') || q.includes('golpe do pix banco')) {
+        return `Conforme a <strong>Súmula 479 do STJ</strong>, as instituições financeiras respondem objetivamente pelos danos gerados por fortuito interno relativo a fraudes e delitos praticados por terceiros no âmbito de operações bancárias (como golpes do PIX, clonagem e abertura de contas mediante fraude).`;
+      }
+
+      if (q.includes('súmula 385') || q.includes('sumula 385') || q.includes('negativação preexistente') || q.includes('nome já sujo')) {
+        return `Conforme a <strong>Súmula 385 do STJ</strong>, a anotação irregular em órgãos de proteção ao crédito não enseja indenização por dano moral se o consumidor já possuía negativações anteriores legítimas, garantindo-se apenas o cancelamento do registro indevido.`;
+      }
+
+      if (q.includes('desvio produtivo') || q.includes('marcos dessaune') || q.includes('tempo útil') || q.includes('dano temporal')) {
+        return `A <strong>Teoria do Desvio Produtivo do Consumidor</strong> (reconhecida no REsp 1.737.412 pelo STJ) estabelece que o tempo vital do consumidor é escasso e não recuperável. A imposição de peregrinação burocrática indevida pelo fornecedor gera dano existencial indenizável, embora a 4ª Turma do STJ recomende cautela para evitar a banalização do dano moral.`;
+      }
+
+      if (q.includes('tema 1198') || q.includes('tema 1.198') || q.includes('litigância predatória') || q.includes('litigancia predatoria') || q.includes('numopede')) {
+        return `Pelo <strong>Tema 1.198 do STJ</strong> e pela <strong>Recomendação CNJ nº 159/2024</strong>, o juiz tem o poder-dever de exigir a emenda da petição inicial (juntada de procuração recente e comprovante de endereço idôneo) diante de indícios concretos de ajuizamento abusivo e serial de demandas (litigância predatória monitorada pelos NUMOPEDEs).`;
+      }
+
+      if (q.includes('superendividamento') || q.includes('lei 14181') || q.includes('lei 14.181') || q.includes('mínimo existencial') || q.includes('minimo existencial')) {
+        return `A <strong>Lei do Superendividamento (Lei nº 14.181/2021)</strong> prevê a repactuação global de dívidas perante todos os credores conjuntamente, garantindo a proteção do mínimo existencial e promovendo a conciliação em bloco, desjudicializando demandas pulverizadas.`;
+      }
+
+      if (q.includes('consumidor.gov') || q.includes('interesse de agir') || q.includes('pretensão resistida')) {
+        return `Tribunais de Justiça (incluindo o TJPB) vêm firmando entendimento de que o prévio acionamento de canais oficiais como o <strong>Consumidor.gov.br</strong> ou SAC da empresa é relevante para caracterizar a pretensão resistida e o interesse processual de agir, evitando a judicialização precipitada.`;
+      }
+
+      if (q.includes('resolução 547') || q.includes('resolucao 547') || q.includes('execução fiscal') || q.includes('execucao fiscal')) {
+        return `A <strong>Resolução CNJ nº 547/2024</strong> (Tema 1.184 STF) determina a extinção de execuções fiscais com valor inferior a <strong>R$ 10.000,00</strong> paralisadas há mais de um ano sem citação ou sem bens localizados, orientando a cobrança para a via extrajudicial de protesto.`;
+      }
+
+      if (q.includes('leilão') || q.includes('leilao') || q.includes('adjudicação') || q.includes('adjudicacao') || q.includes('arrematação') || q.includes('arrematacao')) {
+        return `No Juizado, bens penhorados podem ir a <strong>leilão judicial público</strong> ou serem <strong>adjudicados</strong> diretamente pelo credor para quitação do débito. Se o primeiro leilão for deserto, o juiz pode autorizar uma segunda praça com desconto de até 50%.`;
+      }
+
+      if (q.includes('portas adentro') || q.includes('penhora de salário') || q.includes('penhora de salario') || q.includes('arrombamento') || q.includes('impenhorável') || q.includes('impenhoravel')) {
+        return `O Oficial de Justiça pode realizar a <strong>penhora portas adentro</strong>, inclusive com auxílio policial se houver resistência injustificada. São impenhoráveis móveis e itens essenciais da residência (geladeira, fogão, camas), mas bens supérfluos em duplicidade ou luxo podem ser constritos.`;
+      }
+
+      if (q.includes('harmonização') || q.includes('harmonizacao') || q.includes('tatuador') || q.includes('maquiadora') || q.includes('estética') || q.includes('estetica') || q.includes('depilação') || q.includes('depilacao')) {
+        return `Procedimentos puramente estéticos constituem <strong>obrigação de resultado</strong>. Se houver falha evidente ou abandono em eventos especiais (ex: maquiadora de casamento), o Juizado analisa o caso e pode fixar danos materiais e morais independentemente de perícia médica complexa.`;
+      }
+
+      const exactFaq = FAQ_DATA.find(item => q.includes(item.q.toLowerCase()) || item.q.toLowerCase().includes(q));
+      if (exactFaq) {
+        return exactFaq.a;
+      }
+
+      if (q.includes('entrar com ação') || q.includes('como entrar') || q.includes('processar') || q.includes('sem advogado') || q.includes('peça você mesmo') || q.includes('dar entrada')) {
+        return `Para ingressar com uma ação sem advogado (em causas até 20 salários mínimos), acesse o portal oficial <a href="${unit.atermacaoUrl}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">Peça Você Mesmo nos Juizados</a> do TJPB. Você precisará de RG, CPF, comprovante de residência atualizado em João Pessoa ou Cabedelo e as provas do fato.`;
+      }
+
+      if (q.includes('balcão') || q.includes('balcao') || q.includes('atendimento ao vivo') || q.includes('falar com atendente')) {
+        return `Você pode acessar a sala de videoconferência do nosso <a href="${unit.balcaoUrl}" target="_blank" class="text-sky-700 dark:text-sky-400 font-bold underline">Balcão Virtual Oficial</a> de segunda a sexta, das 07h às 17h, ou falar no WhatsApp <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a>.`;
+      }
+
+      if (q.includes('audiência') || q.includes('audiencia') || q.includes('zoom') || q.includes('sala virtual')) {
+        return `Para receber o link da sua audiência online ou tirar dúvidas sobre pautas, fale com o servidor pelo WhatsApp <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a>. Lembre-se: é proibido usar bermudas ou regatas.`;
+      }
+
+      if (q.includes('bermuda') || q.includes('shorts') || q.includes('regata') || q.includes('vestimenta') || q.includes('roupa')) {
+        return `É <strong>expressamente proibido</strong> comparecer às audiências (presenciais ou por vídeo) trajando shorts, bermudas, camiseta regata ou semelhantes. É obrigatório portar documento oficial original com foto.`;
+      }
+
+      if (q.includes('endereço') || q.includes('endereco') || q.includes('telefone') || q.includes('onde fica') || q.includes('contato')) {
+        return `Estamos localizados no <strong>Fórum Cível Des. Mário Moacyr Porto</strong> (Av. João Machado, s/n - Centro, João Pessoa - PB). WhatsApp: <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a>. E-mail: <a href="mailto:${unit.email}" class="text-sky-700 dark:text-sky-400 font-bold underline">${unit.email}</a>.`;
+      }
+
+      if (q.includes('custas') || q.includes('pagar') || q.includes('gratuito') || q.includes('taxa')) {
+        return `O trâmite em 1º grau nos Juizados é <strong>100% gratuito</strong> (art. 54 da Lei 9.099/95). Guias de preparo para recurso são emitidas no portal <a href="${unit.custasUrl}" target="_blank" class="text-jusblue-700 dark:text-sky-400 font-bold underline">Custas Online do TJPB</a>.`;
+      }
+
+      return `Desculpe, não encontrei essa informação específica nos meus registros oficiais. Para resolver isso rapidamente, por favor, fale com um servidor do nosso cartório pelo WhatsApp <a href="https://wa.me/${unit.whatsappClean}" target="_blank" class="text-emerald-700 dark:text-emerald-400 font-bold underline">${unit.whatsapp}</a> (das 07h às 17h) ou acesse nosso <a href="${unit.balcaoUrl}" target="_blank" class="text-sky-700 dark:text-sky-400 font-semibold underline">Balcão Virtual</a>.`;
+    }
+
+    function findRelatedFaqs(userText) {
+      const clean = userText.toLowerCase().replace(/[^\w\s]/gi, '');
+      const words = clean.split(/\s+/).filter(w => w.length > 3);
+      if (words.length === 0) return FAQ_DATA.slice(0, 3);
+
+      const scored = FAQ_DATA.map(item => {
+        let score = 0;
+        const qText = item.q.toLowerCase();
+        words.forEach(w => {
+          if (qText.includes(w)) score += 2;
+        });
+        return { item, score };
+      });
+
+      scored.sort((a, b) => b.score - a.score);
+      const top = scored.filter(s => s.score > 0).slice(0, 3).map(s => s.item);
+      return top.length > 0 ? top : FAQ_DATA.slice(0, 3);
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById('chatContainer');
+      if (!container) return;
+      const bubble = document.createElement('div');
+      bubble.className = "flex items-start justify-end gap-2.5 max-w-[92%] ml-auto animate-bubble";
+      bubble.innerHTML = `
+        <div class="bg-jusblue-700 text-white rounded-2xl rounded-tr-none p-3 shadow-xs text-xs sm:text-sm leading-relaxed">
+          ${text}
+        </div>
+        <div class="w-8 h-8 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex-shrink-0 flex items-center justify-center text-xs font-bold ring-2 ring-slate-200 dark:ring-slate-600">
+          <i class="fa-solid fa-user text-xs"></i>
+        </div>
+      `;
+      container.appendChild(bubble);
+      scrollToBottom();
+    }
+
+    function appendAssistantMessage(htmlContent, queryContext = '') {
+      const container = document.getElementById('chatContainer');
+      if (!container) return;
+      const bubble = document.createElement('div');
+      bubble.className = "flex items-start gap-2.5 max-w-[94%] animate-bubble";
+      
+      const plainText = htmlContent.replace(/<[^>]+>/g, ' ');
+      const related = findRelatedFaqs(queryContext || plainText);
+
+      let pillsHtml = '';
+      if (related && related.length > 0) {
+        pillsHtml = `
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-700">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 block mb-1">Dúvidas & Precedentes Relacionados:</span>
+            <div class="flex flex-wrap gap-1">
+              ${related.map(r => `
+                <button onclick="triggerFaqFromModal(${r.id})" class="text-[11px] bg-slate-100 dark:bg-slate-700/70 hover:bg-sky-100 dark:hover:bg-slate-700 hover:text-jusblue-800 dark:hover:text-sky-300 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600 transition text-left">
+                  #${r.id} ${r.q.length > 45 ? r.q.substring(0, 45) + '...' : r.q}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      bubble.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-jusblue-900 text-white shrink-0 flex items-center justify-center text-xs font-bold ring-2 ring-sky-200 dark:ring-sky-600">
+          O
+        </div>
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-none p-3.5 shadow-xs text-xs sm:text-sm text-slate-700 dark:text-slate-200 space-y-2 leading-relaxed">
+          <div>${htmlContent}</div>
+          ${pillsHtml}
+          <div class="pt-1.5 flex items-center justify-between border-t border-slate-100 dark:border-slate-700 text-[11px] text-slate-400 dark:text-slate-400">
+            <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-sky-600 dark:text-sky-400"></i> Informação Oficial</span>
+            <button onclick="speakText(decodeURIComponent('${encodeURIComponent(plainText)}'))" class="text-slate-400 dark:text-slate-400 hover:text-jusblue-700 dark:hover:text-sky-300 p-1 flex items-center gap-1 font-medium transition" title="Ouvir resposta">
+              <i class="fa-solid fa-volume-high text-[11px]"></i> Ouvir
+            </button>
+          </div>
+        </div>
+      `;
+      container.appendChild(bubble);
+      scrollToBottom();
+
+      if (autoVoiceEnabled) {
+        speakText(plainText);
+      }
+    }
+
+    function showTyping() {
+      const indicator = document.getElementById('typingIndicator');
+      if (indicator) indicator.classList.remove('hidden');
+      scrollToBottom();
+    }
+    function hideTyping() {
+      const indicator = document.getElementById('typingIndicator');
+      if (indicator) indicator.classList.add('hidden');
+    }
+    function scrollToBottom() {
+      const container = document.getElementById('chatContainer');
+      if (container) container.scrollTop = container.scrollHeight;
+    }
+    function clearChatHistory() {
+      window.location.reload();
+    }
+
+    function setupSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        const btn = document.getElementById('btnMic');
+        if (btn) btn.style.display = 'none';
+        return;
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.lang = 'pt-BR';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        isListening = true;
+        const icon = document.getElementById('micIcon');
+        if (icon) icon.className = "fa-solid fa-circle-dot text-rose-500 animate-pulse text-sm";
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const input = document.getElementById('chatInput');
+        if (input) {
+          input.value = transcript;
+          handleUserMessage(new Event('submit'));
+        }
+      };
+
+      recognition.onerror = () => stopListening();
+      recognition.onend = () => stopListening();
+    }
+
+    function toggleSpeechRecognition() {
+      if (!recognition) return;
+      if (isListening) {
+        recognition.stop();
+        stopListening();
+      } else {
+        try {
+          recognition.start();
+        } catch (e) {
+          stopListening();
+        }
+      }
+    }
+
+    function stopListening() {
+      isListening = false;
+      const icon = document.getElementById('micIcon');
+      if (icon) icon.className = "fa-solid fa-microphone text-sm";
+    }
+
+    function toggleAutoSpeech() {
+      autoVoiceEnabled = !autoVoiceEnabled;
+      const icon = document.getElementById('ttsIcon');
+      if (autoVoiceEnabled) {
+        if (icon) icon.className = "fa-solid fa-volume-high text-xs text-jusblue-700 dark:text-sky-400";
+        speakText("Leitura em voz alta ativada.");
+      } else {
+        if (icon) icon.className = "fa-solid fa-volume-xmark text-xs text-slate-400";
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+      }
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1.05;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFaqModal();
+        closeUnitContactModal();
+        closeAccessibilityModal();
+        closeQrModal();
+      }
+    });
+  </script>
+</body>
+</html>
